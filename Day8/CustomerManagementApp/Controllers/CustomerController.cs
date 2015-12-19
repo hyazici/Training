@@ -3,39 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLayer;
 using CustomerManagementApp.Models;
+using Model;
 
 namespace CustomerManagementApp.Controllers
 {
     public class CustomerController : Controller
     {
+        private readonly CustomerService _customerService;
+
+        public CustomerController()
+        {
+            _customerService = new CustomerService();
+        }
+
         // GET: Customer
         public ActionResult Index()
         {
-            IList<CustomerModel> customerModels = new List<CustomerModel>
-            {
-                new CustomerModel()
-                {
-                    Id = 1,
-                    FirstName = "Deniz",
-                    LastName = "İrgin",
-                    EmailAddress = "deniz@armut.com",
-                    HomeAddress = "Kartal",
-                    WorkAddress = "Kadıköy"
-                },
-                new CustomerModel()
-                {
-                    Id = 2,
-                    FirstName = "Hüseyin",
-                    LastName = "Yazıcı",
-                    EmailAddress = "huseyin@ponera.com",
-                    HomeAddress = "Ataşehir",
-                    WorkAddress = "Kozyatağı"
-                },
-            };
+            IList<Customer> customers = _customerService.GetCustomers();
 
-            // return Content("dasfasdasdas");
-            // return Json()
+            //IList<CustomerModel> customerModels = new List<CustomerModel>();
+
+            //foreach (Customer customer in customers)
+            //{
+            //    CustomerModel customerModel = new CustomerModel();
+
+            //    customerModel.Id = customer.Id;
+            //    customerModel.FirstName = customer.FirstName;
+            //    customerModel.LastName = customer.LastName;
+            //    customerModel.EmailAddress = customer.EmailAddress;
+            //    customerModel.HomeAddress = customer.HomeAddress;
+            //    customerModel.WorkAddress = customer.WorkAddress;
+
+            //    customerModels.Add(customerModel);
+            //}
+
+            var customerModels = customers.Select(customer => new CustomerModel()
+            {
+                Id = customer.Id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                EmailAddress = customer.EmailAddress,
+                HomeAddress = customer.HomeAddress,
+                WorkAddress = customer.WorkAddress,
+            });
 
             return View(customerModels);
         }
