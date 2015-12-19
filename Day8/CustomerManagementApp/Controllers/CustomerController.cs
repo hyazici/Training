@@ -39,15 +39,8 @@ namespace CustomerManagementApp.Controllers
             //    customerModels.Add(customerModel);
             //}
 
-            var customerModels = customers.Select(customer => new CustomerModel()
-            {
-                Id = customer.Id,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                EmailAddress = customer.EmailAddress,
-                HomeAddress = customer.HomeAddress,
-                WorkAddress = customer.WorkAddress,
-            });
+            var customerModels = customers.Select(customer => CustomerToCustomerModel(customer));
+            
 
             return View(customerModels);
         }
@@ -64,10 +57,65 @@ namespace CustomerManagementApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                Customer customer = CustomerModelToCustomer(customerModel);
+                _customerService.AddCustomer(customer);
+
+                return RedirectToAction("Index");
             }
 
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            Customer customer = _customerService.GetCustomerById(id);
+
+            CustomerModel customerModel = CustomerToCustomerModel(customer);
+
+            return View(customerModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(CustomerModel customerModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                Customer customer = CustomerModelToCustomer(customerModel);
+                customer.Id = customerModel.Id;
+
+                _customerService.UpdateCustomer(customer);
+                
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        private CustomerModel CustomerToCustomerModel(Customer customer)
+        {
+            CustomerModel customerModel = new CustomerModel();
+
+            customerModel.Id = customer.Id;
+            customerModel.FirstName = customer.FirstName;
+            customerModel.LastName = customer.LastName;
+            customerModel.EmailAddress = customer.EmailAddress;
+            customerModel.HomeAddress = customer.HomeAddress;
+            customerModel.WorkAddress = customer.WorkAddress;
+            return customerModel;
+        }
+
+        private Customer CustomerModelToCustomer(CustomerModel customerModel)
+        {
+            Customer customer = new Customer();
+            customer.FirstName = customerModel.FirstName;
+            customer.LastName = customerModel.LastName;
+            customer.HomeAddress = customerModel.HomeAddress;
+            customer.WorkAddress = customerModel.WorkAddress;
+            customer.EmailAddress = customerModel.EmailAddress;
+
+            return customer;
         }
     }
 }
