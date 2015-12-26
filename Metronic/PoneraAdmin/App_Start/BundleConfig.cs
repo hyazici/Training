@@ -8,24 +8,51 @@ namespace PoneraAdmin
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/MainLayout").Include(
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/bootstrap.js",
+                        "~/Scripts/js.cookie.min.js",
+                        "~/Scripts/bootstrap-hover-dropdown.js",
+                        "~/Scripts/jquery.slimscroll.js",
+                        "~/Scripts/jquery.blockUI.js",
+                        "~/Scripts/jquery.uniform.js",
+                        "~/Scripts/bootstrap-switch.js",
+                        "~/Scripts/moment.js",
+                        "~/Scripts/daterangepicker.js",
+                        "~/Scripts/morris.js",
+                        "~/Scripts/raphael-min.js",
+                        "~/Scripts/fullcalendar.js",
+                        "~/Scripts/app.js",
+                        "~/Scripts/dashboard.js",
+                        "~/Scripts/layout/layout.js",
+                        "~/Scripts/layout/demo.js",
+                        "~/Scripts/dashboard.js",
+                        "~/Scripts/quick-sidebar.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/MainLayout").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/font-awesome/css/font-awesome.css",
+                      "~/Content/simple-line-icons/simple-line-icons.css",
+                      "~/Content/Themes/uniformjs/default/css/uniform.default.css",
+                      "~/Content/bootstrap-switch/bootstrap3/bootstrap-switch.css",
+                      "~/Content/daterangepicker-bs3.css",
+                      "~/Content/morris/morris.css",
+                      "~/Content/fullcalendar.css",
+                      "~/Content/template/components-rounded.css",
+                      "~/Content/template/plugins.css",
+                      "~/Content/layout/css/layout.css",
+                      "~/Content/layout/css/themes/darkblue.css",
+                      "~/Content/layout/css/custom.css"));
+
+
+#if (DEBUG != true)
+            BundleTable.EnableOptimizations = true;
+#endif
         }
     }
 }
