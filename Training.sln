@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MarsRover", "MarsRover", "{BCE2A884-CB52-46C7-9B97-E4CF55F053DF}"
 EndProject
@@ -28,6 +28,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DelegatesEvent", "Day9\DelegatesEvent\DelegatesEvent.csproj", "{D6E14068-6EEA-4D79-BB77-FDCDE6E89FE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormEvent", "Day9\FormEvent\FormEvent.csproj", "{AF8F37E5-3319-4E89-BDB9-6407BA2CF2BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day10", "Day10", "{83073CFF-BF14-46A1-8C00-473A82B2022D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generics", "Day10\Generics\Generics.csproj", "{F8A215E5-3CCB-4B1C-9310-45F1CCDD7DE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepository", "Day10\GenericRepository\GenericRepository.csproj", "{3DB6E81E-ED6B-419B-A28A-2B9CE1E4756E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +81,14 @@ Global
 		{AF8F37E5-3319-4E89-BDB9-6407BA2CF2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF8F37E5-3319-4E89-BDB9-6407BA2CF2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF8F37E5-3319-4E89-BDB9-6407BA2CF2BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8A215E5-3CCB-4B1C-9310-45F1CCDD7DE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8A215E5-3CCB-4B1C-9310-45F1CCDD7DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8A215E5-3CCB-4B1C-9310-45F1CCDD7DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8A215E5-3CCB-4B1C-9310-45F1CCDD7DE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DB6E81E-ED6B-419B-A28A-2B9CE1E4756E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DB6E81E-ED6B-419B-A28A-2B9CE1E4756E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DB6E81E-ED6B-419B-A28A-2B9CE1E4756E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DB6E81E-ED6B-419B-A28A-2B9CE1E4756E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,5 +104,7 @@ Global
 		{70F8619C-2813-4A2B-AEE5-5099B542A31C} = {8BDBF824-E50E-46BC-9A1B-D1CD8FD2C2A3}
 		{D6E14068-6EEA-4D79-BB77-FDCDE6E89FE7} = {8BDBF824-E50E-46BC-9A1B-D1CD8FD2C2A3}
 		{AF8F37E5-3319-4E89-BDB9-6407BA2CF2BB} = {8BDBF824-E50E-46BC-9A1B-D1CD8FD2C2A3}
+		{F8A215E5-3CCB-4B1C-9310-45F1CCDD7DE8} = {83073CFF-BF14-46A1-8C00-473A82B2022D}
+		{3DB6E81E-ED6B-419B-A28A-2B9CE1E4756E} = {83073CFF-BF14-46A1-8C00-473A82B2022D}
 	EndGlobalSection
 EndGlobal
