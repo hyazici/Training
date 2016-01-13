@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/MainLayout")
+</head>
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+    @{
+        Html.RenderPartial("Header");
+    }
+    <!-- BEGIN HEADER & CONTENT DIVIDER -->
+    <div class="clearfix"> </div>
+    <!-- END HEADER & CONTENT DIVIDER -->
+
+    <div class="page-container">
+        @{
+            Html.RenderPartial("SideBar");
+        }
+
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <div class="page-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            2014 &copy; Metronic by keenthemes.
+            <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/MainLayout")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
