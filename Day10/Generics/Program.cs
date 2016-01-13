@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Generics
 {
@@ -11,24 +12,61 @@ namespace Generics
     {
         static void Main(string[] args)
         {
-            ArrayList myList = new ArrayList();
+            //ArrayList myList = new ArrayList();
 
-            // myList.Add()
+            //// myList.Add()
 
-            MyStack<int> intList = new MyStack<int>();
-            MyStack<string> strList = new MyStack<string>();
-            MyStack<Customer> cusList = new MyStack<Customer>();
+            //MyStack<int> intList = new MyStack<int>();
+            //MyStack<string> strList = new MyStack<string>();
+            //MyStack<Customer> cusList = new MyStack<Customer>();
 
-            // Olmaz çünkü int bir class değil
-            // MyGenericClassCons<int> genericClas = new MyGenericClassCons<int>();
+            //// Olmaz çünkü int bir class değil
+            //// MyGenericClassCons<int> genericClas = new MyGenericClassCons<int>();
 
-            //MyGenericStructCons<Customer> genericCust = new MyGenericStructCons<Customer>
-            MyGenericStructCons<int> genericCust = new MyGenericStructCons<int>();
-            MyGenericClassCons2<Order> order = new MyGenericClassCons2<Order>();
+            ////MyGenericStructCons<Customer> genericCust = new MyGenericStructCons<Customer>
+            //MyGenericStructCons<int> genericCust = new MyGenericStructCons<int>();
+            //MyGenericClassCons2<Order> order = new MyGenericClassCons2<Order>();
 
-            MyGenericClass<Circle> Circle = new MyGenericClass<Circle>();
+            //MyGenericClass<Circle> Circle = new MyGenericClass<Circle>();
 
-            Circle.Foo();
+            //Circle.Foo();
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            Console.WriteLine("ArrayList Başladı");
+            ArrayList arrayList = new ArrayList();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                arrayList.Add(i);
+
+                object intObj = arrayList[i];
+
+                // Console.WriteLine(intObj);
+            }
+
+            sw.Stop();
+            Console.WriteLine("ArrayList bitti");
+            Console.WriteLine(sw.ElapsedTicks);
+            sw.Reset();
+
+
+            sw.Start();
+            Console.WriteLine("List Başladı");
+            List<int> intList = new List<int>();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                intList.Add(i);
+
+                int intReal = intList[i];
+
+                // Console.WriteLine(intObj);
+            }
+
+            sw.Stop();
+            Console.WriteLine("List bitti");
+            Console.WriteLine(sw.ElapsedTicks);
+            sw.Reset();
         }
     }
 

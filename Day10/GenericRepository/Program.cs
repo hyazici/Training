@@ -10,6 +10,9 @@ namespace GenericRepository
     {
         static void Main(string[] args)
         {
+            CustomerRepository customerRepository = new CustomerRepository();
+
+            // customerRepository.
         }
     }
 
@@ -31,33 +34,81 @@ namespace GenericRepository
         public string Name { get; set; }
     }
 
-    public class CustomerRepository : IRepository<Customer, int>
+//    public class CustomerRepository : IRepository<Customer, int>
+//    {
+//        public void Add(Customer entity)
+//        {
+//            // git dapper'ı çağır
+//            // query'ni yaz
+//            // dapper'ı dispose et
+
+////            using (IDbConnection connection = new SqlConnection(_connStr))
+////            {
+////                string cmd = @"INSERT INTO Customer (FirstName, LastName, EmailAddress, HomeAddress, WorkAddress, CreateDate,IsActive) 
+////                                        VALUES( @FirstName, @LastName, @EmailAddress, @HomeAddress, @WorkAddress, @CreateDate, @IsActive )";
+
+////                connection.Execute(cmd, customer);
+////            }
+//        }
+
+//        public void Update(Customer entity)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public Customer Get(int primaryKey)
+//        {
+//            throw new NotImplementedException();
+//        }
+
+//        public void Delete(Customer entity)
+//        {
+//            throw new NotImplementedException();
+//        }
+//    }
+
+    public abstract class BaseRepository<TEntity, KPrimaryKey> : IRepository<TEntity, KPrimaryKey>
     {
-        public void Add(Customer entity)
+        public void Add(TEntity entity)
         {
-            // git dapper'ı çağır
-            // query'ni yaz
-            // dapper'ı dispose et
+// query generate et
+
+            //            using (IDbConnection connection = new SqlConnection(_connStr))
+            //            {
+            //                string cmd = generate edilen query veriler.
+
+            //                connection.Execute(cmd, entity);
+            //            }
         }
 
-        public void Update(Customer entity)
+        public void Update(TEntity entity)
         {
             throw new NotImplementedException();
         }
 
-        public Customer Get(int primaryKey)
+        public TEntity Get(KPrimaryKey primaryKey)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Customer entity)
+        public void Delete(TEntity entity)
         {
             throw new NotImplementedException();
+        }
+
+        protected string GenerateSelectQuery(params string[] columns)
+        {
+            return "Select * from .....";
         }
     }
 
-    //public abstract class BaseRepository<T>
-    //{
-    //    pub
-    //}
+    public class CustomerRepository : BaseRepository<Customer, int>
+    {
+        public Customer GetCustomerByLastName(string name)
+        {
+            // GenerateSelectQuery()
+
+            return new Customer();
+        }
+    }
 }

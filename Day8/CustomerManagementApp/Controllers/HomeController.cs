@@ -8,11 +8,13 @@ namespace CustomerManagementApp.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("AnaSayfa")]
         public ActionResult Index()
         {
             return View();
         }
 
+                [Route("hakkımızda")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -20,6 +22,7 @@ namespace CustomerManagementApp.Controllers
             return View();
         }
 
+                [Route("iletisim")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
