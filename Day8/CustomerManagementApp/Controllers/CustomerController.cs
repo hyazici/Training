@@ -6,10 +6,12 @@ using System.Web.Mvc;
 using BusinessLayer;
 using CustomerManagementApp.Models;
 using Model;
+using CustomerManagementApp.ActionFilters;
 
 namespace CustomerManagementApp.Controllers
 {
-    public class CustomerController : Controller
+    [LoggingFilter]
+    public class CustomerController : BaseController
     {
         private readonly CustomerService _customerService;
 
@@ -19,6 +21,7 @@ namespace CustomerManagementApp.Controllers
         }
 
         // GET: Customer
+
         public ActionResult Index()
         {
             IList<Customer> customers = _customerService.GetCustomers();
@@ -40,7 +43,8 @@ namespace CustomerManagementApp.Controllers
             //}
 
             var customerModels = customers.Select(customer => CustomerToCustomerModel(customer));
-            
+
+            // throw new Exception();
 
             return View(customerModels);
         }
