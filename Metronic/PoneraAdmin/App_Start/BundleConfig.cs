@@ -27,7 +27,9 @@ namespace PoneraAdmin
                         "~/Scripts/layout/layout.js",
                         "~/Scripts/layout/demo.js",
                         "~/Scripts/dashboard.js",
-                        "~/Scripts/quick-sidebar.js"));
+                        "~/Scripts/quick-sidebar.js",
+                        "~/Scripts/datatables.js",
+                        "~/Scripts/datatables.bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -47,7 +49,9 @@ namespace PoneraAdmin
                       "~/Content/template/plugins.css",
                       "~/Content/layout/css/layout.css",
                       "~/Content/layout/css/themes/darkblue.css",
-                      "~/Content/layout/css/custom.css"));
+                      "~/Content/layout/css/custom.css",
+                      "~/Content/datatables/datatables.css",
+                      "~/Content/datatables/datatables.bootstrap.css"));
 
 
 #if (DEBUG != true)
