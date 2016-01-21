@@ -8,9 +8,10 @@ using Ponera.Base.Models;
 
 namespace PoneraAdmin.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
-        private DepartmentService _departmentService;
+       private DepartmentService _departmentService;
 
         public DepartmentController()
         {
@@ -20,9 +21,9 @@ namespace PoneraAdmin.Controllers
         // GET: Department
         public ActionResult Index()
         {
-            IList<DepartmentModel> departmentModels = _departmentService.GetDepartments(null);
+           IList<DepartmentModel> departmentModels = _departmentService.GetDepartments(null);
 
-            return View(departmentModels);
+            return View("Index", departmentModels);
         }
 
         // GET: Department/Details/5

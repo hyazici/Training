@@ -21,7 +21,7 @@ namespace PoneraAdmin.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("PoneraIntranet", throwIfV1Schema: false)
         {
         }
 
