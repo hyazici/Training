@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoneraAdmin", "PoneraAdmin\PoneraAdmin.csproj", "{39883F26-E37B-41AA-A5CA-DBD66E083D5D}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Base\Models\Models.csproj", "{B20F0536-9479-4839-87AE-BF1E9349A496}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "Base\BusinessLayer\BusinessLayer.csproj", "{492736D9-F77C-4BD1-B49C-6AB94AC05C6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security", "Base\Security\Security.csproj", "{5E95E85C-13C9-401E-BD6B-8901256203DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{492736D9-F77C-4BD1-B49C-6AB94AC05C6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{492736D9-F77C-4BD1-B49C-6AB94AC05C6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{492736D9-F77C-4BD1-B49C-6AB94AC05C6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E95E85C-13C9-401E-BD6B-8901256203DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E95E85C-13C9-401E-BD6B-8901256203DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E95E85C-13C9-401E-BD6B-8901256203DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E95E85C-13C9-401E-BD6B-8901256203DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +49,6 @@ Global
 		{D8DC588C-1A05-4C53-AF3C-D6DFE25C6792} = {37FBC71D-C335-4BD9-B5BA-2F22074398CE}
 		{B20F0536-9479-4839-87AE-BF1E9349A496} = {37FBC71D-C335-4BD9-B5BA-2F22074398CE}
 		{492736D9-F77C-4BD1-B49C-6AB94AC05C6C} = {37FBC71D-C335-4BD9-B5BA-2F22074398CE}
+		{5E95E85C-13C9-401E-BD6B-8901256203DF} = {37FBC71D-C335-4BD9-B5BA-2F22074398CE}
 	EndGlobalSection
 EndGlobal
