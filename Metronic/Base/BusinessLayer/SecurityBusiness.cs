@@ -1,0 +1,148 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
+using Ponera.Base.DataAccess;
+using Ponera.Base.Entities;
+using Ponera.Base.Models;
+
+namespace Ponera.Base.BusinessLayer
+{
+    public class SecurityBusiness
+    {
+        private readonly UserRepository _userRepository;
+        private readonly RoleRepository _roleRepository;
+
+        public SecurityBusiness()
+        {
+            _userRepository = new UserRepository();
+            _roleRepository = new RoleRepository();
+
+            // TODO : @deniz Buradaki mapping işlemleri bunu yönetecek ayrı bir class'a taşınacak.
+            Mapper.CreateMap<User, UserModel>();
+            Mapper.CreateMap<UserModel, User>();
+            Mapper.CreateMap<Role, RoleModel>();
+            Mapper.CreateMap<RoleModel, Role>();
+        }
+
+
+        public UserModel GetUserByEmailAddress(string email)
+        {
+            // TODO : @deniz email adress null mı boş mu kontrolü
+
+            User user = _userRepository.GetUserByEmailAddress(email, false);
+            UserModel userModel = Mapper.Map<User, UserModel>(user);
+
+            if (userModel == null)
+            {
+                return null;
+            }
+
+            IList<Role> roles = _roleRepository.GetRolesByUserId(userModel.Id);
+            IEnumerable<RoleModel> roleModels = roles.Select(role => Mapper.Map<Role, RoleModel>(role));
+
+            userModel.Roles = roleModels.ToList();
+
+            return userModel;
+        }
+
+        public void UpdateUser(UserModel userModel)
+        {
+            if (userModel == null)
+            {
+                throw new ArgumentNullException(nameof(userModel));
+            }
+
+            User user = Mapper.Map<UserModel, User>(userModel);
+
+            user.UpdateDate = DateTime.Now;
+            user.UpdateUserId = 0;
+
+            _userRepository.Update(user);
+        }
+
+        public void AddUser(UserModel userModel)
+        {
+            if (userModel == null)
+            {
+                throw new ArgumentNullException(nameof(userModel));
+            }
+
+            // TODO : @deniz çeşitli validasyonlar
+
+            User user = Mapper.Map<UserModel, User>(userModel);
+
+            // Kullanıcıya hoş geldin emaili atabilir.
+
+
+            user.CreateDate = DateTime.Now;
+            user.LastLoginDate = user.CreateDate;
+            user.CreateUserId = 0;
+
+            _userRepository.Add(user);
+        }
+
+        public IList<RoleModel> GetRoles()
+        {
+            IList<Role> roles = _roleRepository.GetAll();
+
+            IList<RoleModel> roleModels = roles.Select(role => Mapper.Map<Role, RoleModel>(role)).ToList();
+
+            return roleModels;
+        }
+
+        public void AddRole(RoleModel roleModel)
+        {
+            if (roleModel == null)
+            {
+                throw new ArgumentNullException(nameof(roleModel));
+            }
+
+            Role role = Mapper.Map<RoleModel, Role>(roleModel);
+
+            role.CreateDate = DateTime.Now;
+            role.CreateUserId = 0;
+            role.Deleted = false;
+
+            _roleRepository.Add(role);
+
+            roleModel.Id = role.Id;
+        }
+
+        public void UpdateRole(RoleModel roleModel)
+        {
+            if (roleModel == null)
+            {
+                throw new ArgumentNullException(nameof(roleModel));
+            }
+
+            // TODO : @deniz update logic'i ayrı private bir method'a taşınabilir.
+            Role role = Mapper.Map<RoleModel, Role>(roleModel);
+
+            role.UpdateDate = DateTime.Now;
+            role.UpdateUserId = 0;
+
+            _roleRepository.Update(role);
+
+            roleModel.Id = role.Id;
+        }
+
+        public void DeleteRoleById(int id)
+        {
+            Role role = _roleRepository.GetById(id);
+
+            if (role == null)
+            {
+                // TODO : @deniz birşey yapmalı?
+            }
+
+            role.Deleted = true;
+
+            RoleModel roleModel = Mapper.Map<Role, RoleModel>(role);
+
+            UpdateRole(roleModel);
+        }
+    }
+}

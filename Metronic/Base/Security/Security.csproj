@@ -7,8 +7,8 @@
     <ProjectGuid>{5E95E85C-13C9-401E-BD6B-8901256203DF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Security</RootNamespace>
-    <AssemblyName>Security</AssemblyName>
+    <RootNamespace>Ponera.Base.Security</RootNamespace>
+    <AssemblyName>Ponera.Base.Security</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationManager.cs" />
+    <Compile Include="AuthorizationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

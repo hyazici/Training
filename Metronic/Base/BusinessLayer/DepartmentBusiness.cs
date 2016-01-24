@@ -9,11 +9,11 @@ using Ponera.Base.Models;
 
 namespace Ponera.Base.BusinessLayer
 {
-    public class DepartmentService
+    public class DepartmentBusiness
     {
         private readonly DepartmentRepository _departmentRepository;
 
-        public DepartmentService()
+        public DepartmentBusiness()
         {
             _departmentRepository = new DepartmentRepository();
 

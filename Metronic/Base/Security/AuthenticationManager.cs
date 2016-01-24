@@ -4,11 +4,11 @@ using Ponera.Base.BusinessLayer;
 using Ponera.Base.Models;
 using PoneraAdmin.Models;
 
-namespace Security
+namespace Ponera.Base.Security
 {
     public static class AuthenticationManager
     {
-        private static readonly SecurityService SecurityService = new SecurityService();
+        private static readonly SecurityBusiness SecurityBusiness = new SecurityBusiness();
 
         public static UserModel User
         {
@@ -27,7 +27,7 @@ namespace Security
             string email = loginViewModel.Email;
             string password = loginViewModel.Password;
 
-            UserModel userModel = SecurityService.GetUserByEmailAddress(email);
+            UserModel userModel = SecurityBusiness.GetUserByEmailAddress(email);
 
             if (userModel == null)
             {
@@ -41,11 +41,22 @@ namespace Security
 
             userModel.LastLoginDate = DateTime.Now;
 
-            SecurityService.UpdateUser(userModel);
+            SecurityBusiness.UpdateUser(userModel);
 
             User = userModel;
 
             return true;
+        }
+
+        public static void RegisterUser(RegisterViewModel model)
+        {
+            UserModel userModel = new UserModel();
+            userModel.FirstName = model.FirstName;
+            userModel.LastName = model.LastName;
+            userModel.Email = model.Email;
+            userModel.Password = model.Password; // TODO : @deniz password encode edilecek.
+
+            SecurityBusiness.AddUser(userModel);
         }
 
         public static void Logout()

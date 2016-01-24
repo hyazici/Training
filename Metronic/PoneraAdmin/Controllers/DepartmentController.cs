@@ -5,23 +5,23 @@ using System.Web;
 using System.Web.Mvc;
 using Ponera.Base.BusinessLayer;
 using Ponera.Base.Models;
+using Ponera.PoneraAdmin.Core;
 
 namespace PoneraAdmin.Controllers
 {
-    [Authorize]
-    public class DepartmentController : Controller
+    public class DepartmentController : SecureBaseController
     {
-       private DepartmentService _departmentService;
+       private DepartmentBusiness _departmentBusiness;
 
         public DepartmentController()
         {
-            _departmentService = new DepartmentService();
+            _departmentBusiness = new DepartmentBusiness();
         }
 
-        // GET: Department
+        [AuthorizeAction("Research")]
         public ActionResult Index()
         {
-           IList<DepartmentModel> departmentModels = _departmentService.GetDepartments(null);
+           IList<DepartmentModel> departmentModels = _departmentBusiness.GetDepartments(null);
 
             return View("Index", departmentModels);
         }

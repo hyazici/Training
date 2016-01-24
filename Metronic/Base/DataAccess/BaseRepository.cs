@@ -12,6 +12,7 @@ namespace Ponera.Base.DataAccess
     public abstract class BaseRepository<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
         where TEntity : class, Entities.IEntity
     {
+        // TODO : @deniz IOC'e geçtiğimiz dbmanger container'den gelmeli.
         protected readonly DbManager _dbManager;
 
         public BaseRepository()

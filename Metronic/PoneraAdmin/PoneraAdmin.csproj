@@ -159,8 +159,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2139,6 +2141,7 @@
     <Content Include="Content\img\social\youtube.png" />
     <Content Include="Content\img\syncfusion-icons-white.png" />
     <Content Include="Content\img\syncfusion-icons.png" />
+    <Content Include="Content\login.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\fullcalendar.min.css" />
@@ -2477,6 +2480,7 @@
     <Content Include="Scripts\layout\layout.min.js" />
     <Content Include="Scripts\layout\quick-sidebar.js" />
     <Content Include="Scripts\layout\quick-sidebar.min.js" />
+    <Content Include="Scripts\login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -2484,6 +2488,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\morris.js" />
     <Content Include="Scripts\morris.min.js" />
+    <Content Include="Scripts\mustache.js" />
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Content\morris\spec\specs.html" />
     <Content Include="Content\morris\spec\viz\examples.js" />
@@ -2572,6 +2577,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Views\namespace.js" />
+    <Content Include="Scripts\Views\Role\role.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2593,7 +2600,7 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Login_old.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
@@ -2611,6 +2618,11 @@
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Shared\SideBar.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Error\UnauthorizedAccess.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2632,6 +2644,10 @@
     <ProjectReference Include="..\Base\Security\Security.csproj">
       <Project>{5e95e85c-13c9-401e-bd6b-8901256203df}</Project>
       <Name>Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PoneraAdmin.Core\PoneraAdmin.Core.csproj">
+      <Project>{96185f1e-2e4d-4747-bbad-ee8c5709a1cf}</Project>
+      <Name>PoneraAdmin.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

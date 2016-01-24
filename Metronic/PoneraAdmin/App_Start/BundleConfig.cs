@@ -10,6 +10,7 @@ namespace PoneraAdmin
         {
             bundles.Add(new ScriptBundle("~/bundles/MainLayout").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.validate*",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/js.cookie.min.js",
                         "~/Scripts/bootstrap-hover-dropdown.js",
@@ -29,7 +30,15 @@ namespace PoneraAdmin
                         "~/Scripts/dashboard.js",
                         "~/Scripts/quick-sidebar.js",
                         "~/Scripts/datatables.js",
-                        "~/Scripts/datatables.bootstrap.js"));
+                        "~/Scripts/datatables.bootstrap.js",
+                        "~/Scripts/mustache.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/login").Include(
+                "~/Scripts/login.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/role").Include(
+                "~/Scripts/Views/namespace.js",
+                "~/Scripts/Views/Role/role.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -52,6 +61,9 @@ namespace PoneraAdmin
                       "~/Content/layout/css/custom.css",
                       "~/Content/datatables/datatables.css",
                       "~/Content/datatables/datatables.bootstrap.css"));
+
+            bundles.Add(new StyleBundle("~/Content/login").Include(
+                "~/Content/login.css"));
 
 
 #if (DEBUG != true)
