@@ -30,7 +30,7 @@ namespace Ponera.Base.BusinessLayer
 
         public UserModel GetUserByEmailAddress(string email)
         {
-            User user = _userRepository.GetUserByEmailAddress(email, true);
+            User user = _userRepository.GetUserByEmailAddress(email, false);
             UserModel userModel = Mapper.Map<User, UserModel>(user);
 
             if (userModel == null)

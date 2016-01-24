@@ -5,71 +5,47 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
-using Dapper.Extensions.Linq;
-using Dapper.Extensions.Linq.Core;
-using Dapper.Extensions.Linq.Core.Configuration;
-using Dapper.Extensions.Linq.Extensions;
-using Dapper.Extensions.Linq.Mapper;
-using Dapper.Extensions.Linq.Predicates;
-using Dapper.Extensions.Linq.Sql;
+
 
 namespace Ponera.Base.DataAccess
 {
-    public abstract class BaseRepository<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey> 
+    public abstract class BaseRepository<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
         where TEntity : class, Entities.IEntity
     {
-        protected readonly string _connStr;
+        protected readonly DbManager _dbManager;
 
         public BaseRepository()
         {
-            _connStr = ConfigurationManager.ConnectionStrings["PoneraIntranet"].ConnectionString;
+            _dbManager = new DbManager();
         }
 
         public TEntity GetById(TPrimaryKey primaryKey)
         {
-            using (IDbConnection connection = new SqlConnection(_connStr))
-            {
-                TEntity entity = connection.Get<TEntity>(primaryKey);
+            TEntity entity = _dbManager.SingleOrDefault<TEntity>(primaryKey);
 
-                return entity;
-            }
+            return entity;
         }
 
         public IList<TEntity> GetAll()
         {
-            using (IDbConnection connection = new SqlConnection(_connStr))
-            {
-                IList<TEntity> entities = connection.GetList<TEntity>().ToList();
+            IList<TEntity> entities = _dbManager.GetAll<TEntity>().ToList();
 
-                return entities;
-            }
+            return entities;
         }
 
         public void Add(TEntity entity)
         {
-            using (IDbConnection connection = new SqlConnection(_connStr))
-            {
-                connection.Insert(entity);
-            }
+            _dbManager.Insert(entity);
         }
 
         public void Update(TEntity entity)
         {
-            using (IDbConnection connection = new SqlConnection(_connStr))
-            {
-                connection.Update(entity);
-            }
+            _dbManager.Update(entity);
         }
 
         public void Delete(TEntity entity)
         {
-            using (IDbConnection connection = new SqlConnection(_connStr))
-            {
-                connection.Delete(entity);
-            }
+            _dbManager.Delete(entity);
         }
     }
 }

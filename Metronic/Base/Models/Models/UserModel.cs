@@ -20,6 +20,8 @@ namespace Ponera.Base.Models
         // TODO : @deniz passwordler encyrept edilecek 
         public string Password { get; set; }
 
+        public DateTime CreateDate { get; set; }
+
         public DateTime LastLoginDate { get; set; }
 
         public IList<RoleModel> Roles { get; set; }

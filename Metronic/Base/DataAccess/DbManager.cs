@@ -1,59 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Ponera.Base.DataAccess
 {
-    public class DbManager : IDisposable
+    public class DbManager : PetaPoco.Database
     {
-        private IDbConnection _conn { get; set; }
-
-        /// <summary>
-        /// Return open connection
-        /// </summary>
-        public IDbConnection Connection
+        public DbManager()
+            : base("PoneraIntranet")
         {
-            get
-            {
-                if (_conn.State == ConnectionState.Closed)
-                {
-                    _conn.Open();
-                }
 
-                return _conn;
-            }
         }
 
-        /// <summary>
-        /// Create a new Sql database connection
-        /// </summary>
-        /// <param name="connString">The name of the connection string</param>
-        public DbManager(string connString = null)
+        public IEnumerable<T> GetAll<T>()
         {
-            // Use first?
-            if (string.IsNullOrEmpty(connString))
-            {
-                connString = ConfigurationManager.ConnectionStrings["PoneraIntranet"].ConnectionString;
-            }
+            var entityType = typeof(T);
+            string query = $"Select * From {entityType.Name}";
 
-            _conn = new SqlConnection(connString);
-        }
-
-        /// <summary>
-        /// Close and dispose of the database connection
-        /// </summary>
-        public void Dispose()
-        {
-            if (_conn != null)
-            {
-                if (_conn.State == ConnectionState.Open)
-                {
-                    _conn.Close();
-                    _conn.Dispose();
-                }
-                _conn = null;
-            }
+            return Query<T>(query);
         }
     }
 }

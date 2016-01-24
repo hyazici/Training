@@ -31,20 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Dapper.Extensions.Linq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dapper.Extensions.Linq.1.1.11\lib\net46\Dapper.Extensions.Linq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Dapper.Extensions.Linq.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dapper.Extensions.Linq.Core.1.0.4\lib\net46\Dapper.Extensions.Linq.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DapperExtensions, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DapperExtensions.1.4.4\lib\net40\DapperExtensions.dll</HintPath>
+    <Reference Include="PetaPoco, Version=5.1.121.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PetaPoco.Core.Compiled.5.1.121\lib\net46\PetaPoco.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -66,13 +54,16 @@
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{b20f0536-9479-4839-87ae-bf1e9349a496}</Project>
       <Name>Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
+﻿using System.Linq;
 using Ponera.Base.Entities;
 
 namespace Ponera.Base.DataAccess
@@ -13,16 +7,11 @@ namespace Ponera.Base.DataAccess
     {
         public User GetUserByEmailAddress(string email, bool? deleted = false)
         {
-            using (DbManager manager = new DbManager())
-            {
-                IDbConnection connection = manager.Connection;
+            string query = "Select * From [User] Where (@deleted IS NULL OR Deleted = @deleted) AND Email = @email";
 
-                string query = "Select * From [User] Where (@deleted IS NULL OR Deleted = @deleted) AND Email = @email";
+            User user = _dbManager.Query<User>(query, new { deleted = deleted, email = email }).FirstOrDefault();
 
-                User user = connection.Query<User>(query, new {deleted = deleted, email = email}).FirstOrDefault();
-
-                return user;
-            }
+            return user;
         }
     }
 }

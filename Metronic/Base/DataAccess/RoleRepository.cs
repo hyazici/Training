@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using Dapper;
 using Ponera.Base.Entities;
 
 namespace Ponera.Base.DataAccess
@@ -10,18 +8,11 @@ namespace Ponera.Base.DataAccess
     {
         public IList<Role> GetRolesByUserId(int userId)
         {
-            // SELECT r.* FROM Role AS r LEFT OUTER JOIN UserRole AS ur ON r.Id = ur.RoleId WHERE (ur.UserId = 2)
+            string query = "SELECT r.* FROM [Role] AS r LEFT OUTER JOIN UserRole AS ur ON r.Id = ur.RoleId WHERE (ur.UserId = @userId)";
 
-            using (DbManager manager = new DbManager())
-            {
-                IDbConnection connection = manager.Connection;
+            IList<Role> roles = _dbManager.Query<Role>(query, new { userId = userId }).ToList();
 
-                string query = "SELECT r.* FROM [Role] AS r LEFT OUTER JOIN UserRole AS ur ON r.Id = ur.RoleId WHERE (ur.UserId = @userId)";
-
-                IList<Role> roles = connection.Query<Role>(query, new {userId = userId}).ToList();
-
-                return roles;
-            }
+            return roles;
         }
     }
 }

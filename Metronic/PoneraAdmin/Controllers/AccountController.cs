@@ -37,10 +37,11 @@ namespace PoneraAdmin.Controllers
 
             if (!login)
             {
-                //
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
             }
 
-            return View();
+            return RedirectToLocal(returnUrl);
         }
 
         //
@@ -88,6 +89,15 @@ namespace PoneraAdmin.Controllers
         public ActionResult LogOff()
         {
             //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
             return RedirectToAction("Index", "Home");
         }
     }
