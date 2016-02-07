@@ -64,9 +64,17 @@
             </div>
         </form>
     </div>
-    <div class="copyright"> 2014 © Metronic. Admin Dashboard Template. </div>
+<div class="copyright"> 2014 © Metronic. Admin Dashboard Template. </div>
     @Scripts.Render("~/bundles/MainLayout")
     @Scripts.Render("~/bundles/login")
+
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+        $('input[name=Email]').val('huseyin.yazici@ponera.com.tr');
+        $('input[name=Password]').val('123456Aa!');
+    })
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,71 @@
+﻿@using System.Collections
+@using System.ComponentModel
+@using System.Reflection
+
+@model PoneraAdmin.Views.Templates.Models.GridTemplateModel
+
+@{
+    Type listType = Model.Model.GetType();
+    var modelType = listType.GetGenericArguments()[0];
+    PropertyInfo[] propertyInfos = modelType.GetProperties();
+    IList<string> displayColumns = new List<string>();
+
+    var modelList = Model.Model;
+
+    if (Model.DisplayColumns != null && Model.DisplayColumns.Count > 0)
+    {
+        displayColumns = Model.DisplayColumns;
+    }
+    else
+    {
+        displayColumns = propertyInfos.Select(info => info.Name).ToList();
+    }
+}
+
+<table id="dataTable" class="table">
+    <tr>
+        @foreach (var column in displayColumns)
+        {
+            <th>
+                @column
+            </th>
+        }
+
+        <th></th>
+    </tr>
+
+
+    @foreach (object item in (modelList as IEnumerable))
+    {
+        PropertyInfo idPropInfo = propertyInfos.First(info => info.Name == "Id");
+        object id = idPropInfo.GetValue(item);
+
+        <tr data-id="@id">
+            @foreach (var column in displayColumns)
+            {
+                PropertyInfo columnProp = propertyInfos.First(info => info.Name == column);
+                object columnValue = columnProp.GetValue(item);
+
+                <td>
+                    <label data-colunmName="@column">@columnValue</label>
+                </td>
+            }
+            <td>
+                <a href="javascript:;" data-id="@id" class="editButton">Seç</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<script id="newItemTemplate" type="x-tmpl-mustache">
+    <tr data-id="{{ Id }}">
+        @foreach (var column in displayColumns)
+        {
+            <td>
+                <label data-colunmName="@column">{{ @column }}</label>
+            </td>
+        }
+
+        <td><a href="javascript:;" data-id="{{ Id }}" class="editButton">Seç</a></td>
+    </tr>
+</script>

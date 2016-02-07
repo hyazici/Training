@@ -38,6 +38,7 @@ namespace PoneraAdmin
 
             bundles.Add(new ScriptBundle("~/bundles/role").Include(
                 "~/Scripts/Views/namespace.js",
+                "~/Scripts/Views/crudHelper.js",
                 "~/Scripts/Views/Role/role.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

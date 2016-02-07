@@ -27,9 +27,9 @@ namespace Ponera.Base.DataAccess
             return entity;
         }
 
-        public IList<TEntity> GetAll()
+        public IList<TEntity> GetAll(bool? deleted = null)
         {
-            IList<TEntity> entities = _dbManager.GetAll<TEntity>().ToList();
+            IList<TEntity> entities = _dbManager.GetAll<TEntity>(deleted).ToList();
 
             return entities;
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Ponera.Base.BusinessLayer;
@@ -43,13 +44,24 @@ namespace PoneraAdmin.Controllers
                 return Json(roleModel);
 
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
         }
 
-        [HttpDelete]
+        public ActionResult GetById(int id)
+        {
+            RoleModel roleById = _securityBusiness.GetRoleById(id);
+
+            if (roleById == null)
+            {
+                // TODO :asdasd
+            }
+
+            return Json(roleById, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Delete(int id)
         {
             try

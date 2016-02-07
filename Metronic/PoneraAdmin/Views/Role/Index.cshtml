@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Ponera.Base.Models.RoleModel>
+﻿@using Ponera.Base.Models
+@using PoneraAdmin.Views.Templates.Models
+@model IEnumerable<RoleModel>
 
 @{
     ViewBag.Title = "Index";
@@ -7,63 +9,21 @@
 
 <h2>Index</h2>
 
-<p>
-    <a id="createNewButton" href="javascript:;">Yeni</a>
-</p>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <input type="hidden" id="hiddenId" name="Id" />
-        <h4>RoleModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <label class="control-label col-md-2">Role Adı</label>
-            <div class="col-md-10">
-                <input class="form-control text-box single-line" id="RoleName" name="RoleName" type="text" value="">
-                <span class="field-validation-valid text-danger" data-valmsg-for="RoleName" data-valmsg-replace="true"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input id="submitButton" type="button" value="Kaydet" class="btn btn-default" />
-                <input id="deleteButton" type="button" value="Sil" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+@{
+    Html.RenderPartial("~/Views/Templates/_FormTemplate.cshtml", typeof(RoleModel));
 }
+
 <br />
 
-<table id="rolesTable" class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RoleName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+@{
+    Html.RenderPartial("~/Views/Templates/_GridTemplate.cshtml", new GridTemplateModel()
     {
-        <tr>
-            <td>
-                <label data-id="@item.Id">@item.RoleName</label>
-            </td>
-            <td>
-                <a id="editButton" href="javascript:;" data-id="@item.Id">Güncelle</a>
-            </td>
-        </tr>
-    }
+        Model = Model,
+        DisplayColumns = PropertyNameHelper.GetPropertyNames<RoleModel>(model => model.RoleName)
+    });
+}
 
-</table>
 @section scripts
 {
     @Scripts.Render("~/bundles/role")
 }
-
-<script id="newRoleTemplate" type="x-tmpl-mustache">
-    <tr><td><label data-id="{{ Id }}">{{ RoleName }}</label></td><td><a id="editButton" href="javascript:;" data-id="{{ Id }}">Güncelle</a></td></tr>
-</script>

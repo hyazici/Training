@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Ponera.Base.BusinessLayer.Extensions;
 using Ponera.Base.DataAccess;
 using Ponera.Base.Entities;
 using Ponera.Base.Models;
@@ -86,11 +87,25 @@ namespace Ponera.Base.BusinessLayer
 
         public IList<RoleModel> GetRoles()
         {
-            IList<Role> roles = _roleRepository.GetAll();
+            IList<Role> roles = _roleRepository.GetAll(false);
 
             IList<RoleModel> roleModels = roles.Select(role => Mapper.Map<Role, RoleModel>(role)).ToList();
 
             return roleModels;
+        }
+
+        public RoleModel GetRoleById(int id)
+        {
+            if (id == 0)
+            {
+                // TODO : exception fırlat
+            }
+
+            Role role = _roleRepository.GetById(id);
+
+            RoleModel roleModel = role.Map<RoleModel>();
+
+            return roleModel;
         }
 
         public void AddRole(RoleModel roleModel)
@@ -118,13 +133,15 @@ namespace Ponera.Base.BusinessLayer
                 throw new ArgumentNullException(nameof(roleModel));
             }
 
-            // TODO : @deniz update logic'i ayrı private bir method'a taşınabilir.
-            Role role = Mapper.Map<RoleModel, Role>(roleModel);
+            Role role = _roleRepository.GetById(roleModel.Id);
 
-            role.UpdateDate = DateTime.Now;
-            role.UpdateUserId = 0;
+            if (role == null)
+            {
+                // TODO : throw exception
+            }
 
-            _roleRepository.Update(role);
+            role.RoleName = roleModel.RoleName;
+            UpdateRole(role);
 
             roleModel.Id = role.Id;
         }
@@ -140,9 +157,15 @@ namespace Ponera.Base.BusinessLayer
 
             role.Deleted = true;
 
-            RoleModel roleModel = Mapper.Map<Role, RoleModel>(role);
+            UpdateRole(role);
+        }
 
-            UpdateRole(roleModel);
+        private void UpdateRole(Role role)
+        {
+            role.UpdateDate = DateTime.Now;
+            role.UpdateUserId = 0;
+
+            _roleRepository.Update(role);
         }
     }
 }

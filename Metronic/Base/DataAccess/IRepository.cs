@@ -12,7 +12,7 @@ namespace Ponera.Base.DataAccess
     {
         TEntity GetById(TPrimaryKey primaryKey);
 
-        IList<TEntity> GetAll();
+        IList<TEntity> GetAll(bool? deleted = null);
 
         void Add(TEntity entity);
 
