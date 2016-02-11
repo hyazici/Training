@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Ponera.Base.Security;
 
 namespace Ponera.PoneraAdmin.Core
@@ -21,7 +22,12 @@ namespace Ponera.PoneraAdmin.Core
 
             if (!isUserAuthorized)
             {
-                filterContext.Result = new RedirectToRouteResult("Error/UnauthorizedAccess", null);
+                filterContext.Result =
+                    new RedirectToRouteResult(new RouteValueDictionary()
+                    {
+                        {"controller", "Error"},
+                        {"action", "UnauthorizedAccess"}
+                    });
             }
 
             base.OnActionExecuting(filterContext);
