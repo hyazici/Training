@@ -73,6 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Country.cs" />
+    <Compile Include="Models\CountryModel.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Entities\Department.cs" />
     <Compile Include="Entities\IEntity.cs" />

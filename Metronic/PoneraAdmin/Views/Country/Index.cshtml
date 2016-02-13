@@ -1,0 +1,30 @@
+﻿@using Ponera.Base.Models
+@using PoneraAdmin.Views.Templates.Models
+@model IEnumerable<CountryModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@{
+    Html.RenderPartial("~/Views/Templates/_FormTemplate.cshtml", typeof(CountryModel));
+}
+
+<br />
+
+@{
+    Html.RenderPartial("~/Views/Templates/_GridTemplate.cshtml", new GridTemplateModel()
+    {
+        Model = Model,
+        DisplayColumns = PropertyNameHelper.GetPropertyNames<CountryModel>(model => model.CountryName)
+    });
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/country")
+}
+
