@@ -3,15 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Ponera.Base.BusinessLayer;
+using Ponera.Base.Models;
+using Ponera.PoneraAdmin.Core;
 
 namespace PoneraAdmin.Controllers
 {
-    public class CountryController : Controller
+    [AuthorizeAction()]
+    public class CountryController : SecureBaseController
     {
+        private readonly SecurityBusiness _securityBusiness;
+        private readonly CountryBusiness _countryBusiness;
+
+        public CountryController()
+        {
+            _securityBusiness = new SecurityBusiness();
+            _countryBusiness=new CountryBusiness();
+        }
         // GET: Country
         public ActionResult Index()
         {
-            return View();
+            IList<CountryModel> _country = _countryBusiness.GetCountrys();
+            return View(_country);
         }
 
         // GET: Country/Details/5
@@ -42,6 +55,30 @@ namespace PoneraAdmin.Controllers
             }
         }
 
+        // POST: Role/Create
+        [HttpPost]
+        public ActionResult Save(CountryModel countryModel)
+        {
+            try
+            {
+                if (countryModel.Id == 0)
+                {
+                    _countryBusiness.AddCountry(countryModel);
+                }
+                else
+                {
+                    _countryBusiness.UpdateCountry(countryModel);
+                }
+
+                return Json(countryModel);
+
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
         // GET: Country/Edit/5
         public ActionResult Edit(int id)
         {
@@ -64,26 +101,30 @@ namespace PoneraAdmin.Controllers
             }
         }
 
-        // GET: Country/Delete/5
         public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Country/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                _countryBusiness.DeleteCountry(id);
 
-                return RedirectToAction("Index");
+                return new EmptyResult();
             }
             catch
             {
                 return View();
             }
+        }
+
+        public ActionResult GetById(int id)
+        {
+            CountryModel countryById = _countryBusiness.GetCountryById(id);
+
+            if (countryById == null)
+            {
+                // TODO :asdasd
+            }
+
+            return Json(countryById, JsonRequestBehavior.AllowGet);
         }
     }
 }

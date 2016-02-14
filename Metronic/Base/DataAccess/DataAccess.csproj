@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="CountryRepository.cs" />
     <Compile Include="DbManager.cs" />
     <Compile Include="DepartmentRepository.cs" />
     <Compile Include="IRepository.cs" />
