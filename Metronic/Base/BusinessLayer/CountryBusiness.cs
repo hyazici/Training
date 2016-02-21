@@ -24,6 +24,7 @@ namespace Ponera.Base.BusinessLayer
             Mapper.CreateMap<Country, CountryModel>();
             Mapper.CreateMap<CountryModel, Country>();
         }
+
         public IList<CountryModel> GetCountrys()
         {
             IList<Country> countrys = _countryRepository.GetAll(false);

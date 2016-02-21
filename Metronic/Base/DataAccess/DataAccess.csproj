@@ -50,6 +50,8 @@
     <Compile Include="DbManager.cs" />
     <Compile Include="DepartmentRepository.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="MenuAuhorizationRepository.cs" />
+    <Compile Include="MenuRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleRepository.cs" />
     <Compile Include="UserRepository.cs" />

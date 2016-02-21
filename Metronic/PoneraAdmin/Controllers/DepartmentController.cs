@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Ponera.Base.BusinessLayer;
 using Ponera.Base.Models;
 using Ponera.PoneraAdmin.Core;
+using Ponera.PoneraAdmin.Core.Permission;
 
 namespace PoneraAdmin.Controllers
 {
@@ -19,6 +20,7 @@ namespace PoneraAdmin.Controllers
         }
 
         [AuthorizeAction("Research")]
+        [ActionPermission(ActionPermissions.Read)]
         public ActionResult Index()
         {
            IList<DepartmentModel> departmentModels = _departmentBusiness.GetDepartments(null);

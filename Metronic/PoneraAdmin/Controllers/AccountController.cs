@@ -1,5 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using Ponera.Base.BusinessLayer;
+using Ponera.Base.Models;
 using Ponera.Base.Security;
 using Ponera.PoneraAdmin.Core;
 using PoneraAdmin.Models;
@@ -35,6 +39,9 @@ namespace PoneraAdmin.Controllers
                 return View(model);
             }
 
+            //TODO:@deniz merkezi bir yere taşınacak
+            SessionManager.MenuModels = MenuManager.GetUserMenuModels();
+
             return RedirectToLocal(returnUrl);
         }
 
@@ -62,8 +69,6 @@ namespace PoneraAdmin.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.Logout();
