@@ -6,21 +6,17 @@ using System.Threading.Tasks;
 
 namespace Ponera.Base.Entities
 {
-    public class MenuAuthorization : IEntity
+    public class PageAuthorization : IEntity
     {
         public int Id { get; set; }
 
-        public int MenuId { get; set; }
+        public string Url { get; set; }
 
         public int? UserId { get; set; }
 
         public int? RoleId { get; set; }
 
-        public bool SavePermission { get; set; }
-
-        public bool ReadPermission { get; set; }
-
-        public bool DeletePermission { get; set; }
+        public string Permission { get; set; }
 
         public DateTime CreateDate { get; set; }
 

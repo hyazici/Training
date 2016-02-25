@@ -8,7 +8,6 @@ using Ponera.PoneraAdmin.Core;
 
 namespace PoneraAdmin.Controllers
 {
-    [AuthorizeAction()]
     public class RoleController : SecureBaseController
     {
         private readonly SecurityBusiness _securityBusiness;

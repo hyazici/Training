@@ -15,17 +15,21 @@ namespace Ponera.Base.BusinessLayer
     {
         private readonly UserRepository _userRepository;
         private readonly RoleRepository _roleRepository;
+        private readonly PageAuhorizationRepository _pageAuhorizationRepository;
 
         public SecurityBusiness()
         {
             _userRepository = new UserRepository();
             _roleRepository = new RoleRepository();
+            _pageAuhorizationRepository = new PageAuhorizationRepository();
 
             // TODO : @deniz Buradaki mapping işlemleri bunu yönetecek ayrı bir class'a taşınacak.
             Mapper.CreateMap<User, UserModel>();
             Mapper.CreateMap<UserModel, User>();
             Mapper.CreateMap<Role, RoleModel>();
             Mapper.CreateMap<RoleModel, Role>();
+            Mapper.CreateMap<PageAuthorizationModel, PageAuthorization>();
+            Mapper.CreateMap<PageAuthorization, PageAuthorizationModel>();
         }
 
 
@@ -166,6 +170,15 @@ namespace Ponera.Base.BusinessLayer
             role.UpdateUserId = 0;
 
             _roleRepository.Update(role);
+        }
+
+        public IList<PageAuthorizationModel> GetMenuAuthorizationModelsByUrl(string url)
+        {
+            IList<PageAuthorization> menuAuthorizationsByMenuId = _pageAuhorizationRepository.GetPageAuthorizationsByUrl(url);
+
+            var menuAuthorizationModels = menuAuthorizationsByMenuId.Select(authorization => authorization.Map<PageAuthorizationModel>()).ToList();
+
+            return menuAuthorizationModels;
         }
     }
 }

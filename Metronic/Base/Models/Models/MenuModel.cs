@@ -13,7 +13,6 @@ namespace Ponera.Base.Models
         public MenuModel()
         {
             ChildMenus = new List<MenuModel>();
-            MenuAuthorizationModels = new List<MenuAuthorizationModel>();
         }
 
         public int Id { get; set; }
@@ -27,8 +26,6 @@ namespace Ponera.Base.Models
         public string Url { get; set; }
 
         public string Icon { get; set; }
-
-        public IList<MenuAuthorizationModel> MenuAuthorizationModels { get; set; }
 
         public DateTime CreateDate { get; set; }
 

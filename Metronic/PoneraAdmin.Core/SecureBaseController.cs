@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Ponera.Base.BusinessLayer;
 using Ponera.Base.Models;
 using Ponera.PoneraAdmin.Core.Permission;
 using AuthenticationManager = Ponera.Base.Security.AuthenticationManager;
@@ -11,6 +13,13 @@ namespace Ponera.PoneraAdmin.Core
 {
     public class SecureBaseController : BaseController
     {
+        private readonly SecurityBusiness _securityBusiness;
+
+        public SecureBaseController()
+        {
+            _securityBusiness = new SecurityBusiness();
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             UserModel userModel = AuthenticationManager.User;
@@ -33,40 +42,28 @@ namespace Ponera.PoneraAdmin.Core
 
             if (!customAttributes.Any())
             {
-                if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
-                {
-                    filterContext.Result = Json(new {Message = "Unauthorized"}, JsonRequestBehavior.AllowGet);
-                    Response.StatusCode = (int) HttpStatusCode.Unauthorized;
-                }
-                else
-                {
-                    filterContext.Result =
-                        new RedirectToRouteResult(new RouteValueDictionary()
-                        {
-                            {"controller", "Error"},
-                            {"action", "UnauthorizedAccess"}
-                        });
-                }
+                ActionResult unauthorizedActionResult = GetUnauthorizedActionResult(filterContext);
+                filterContext.Result = unauthorizedActionResult;
 
                 base.OnActionExecuting(filterContext);
                 return;
             }
 
             ActionPermissionAttribute actionPermissionAttribute = (ActionPermissionAttribute)customAttributes[0];
-            var actionPermissions = actionPermissionAttribute.Permission;
-            IList<MenuModel> flatMenuModels = MenuManager.GetFlatMenuModels();
-            string url = Request.Url.ToString();
-            MenuModel menuModel = flatMenuModels.FirstOrDefault(model => model.Url == url);
+            string actionPermissions = actionPermissionAttribute.Permission;
+            string url = $"/{filterContext.RouteData.Values["controller"]}/{filterContext.RouteData.Values["action"]}";
 
-            if (menuModel == null)
+            IList<PageAuthorizationModel> authorizationModels = _securityBusiness.GetMenuAuthorizationModelsByUrl(url);
+
+            List<PageAuthorizationModel> userMenuAuth = authorizationModels.Where(
+                model => (model.UserId == userModel.Id || roleModels.Any(roleModel => roleModel.Id == model.RoleId)))
+                .ToList();
+
+            if (userMenuAuth.All(model => model.Permission != actionPermissions))
             {
-                base.OnActionExecuting(filterContext);
-                return;
+                ActionResult unauthorizedActionResult = GetUnauthorizedActionResult(filterContext);
+                filterContext.Result = unauthorizedActionResult;
             }
-
-            IList<MenuAuthorizationModel> authorizationModels = menuModel.MenuAuthorizationModels;
-
-            authorizationModels.Where(model => (model.UserId == userModel.Id || roleModels.Any(roleModel => roleModel.Id == model.RoleId)));
 
             base.OnActionExecuting(filterContext);
         }
@@ -85,6 +82,21 @@ namespace Ponera.PoneraAdmin.Core
                     {"controller", "Error"},
                     {"action", "UnauthorizedAccess"}
                 });
+        }
+
+        private string GetAuthUrl(string url)
+        {
+            string[] urlParts = url.Split('/');
+
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append("/");
+            for (int i = 0; i < urlParts.Length - 1; i++)
+            {
+                urlBuilder.Append(urlParts[i]);
+                urlBuilder.Append("/");
+            }
+
+            return urlBuilder.ToString(0, urlBuilder.Length - 1);
         }
     }
 }

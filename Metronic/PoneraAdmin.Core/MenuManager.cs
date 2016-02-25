@@ -12,6 +12,7 @@ namespace Ponera.PoneraAdmin.Core
     public static class MenuManager
     {
         private static readonly MenuBusiness MenuBusiness = new MenuBusiness();
+        private static readonly SecurityBusiness SecurityBusiness = new SecurityBusiness();
 
         private static IList<MenuModel> FlatMenuModels = new List<MenuModel>();
 
@@ -62,10 +63,10 @@ namespace Ponera.PoneraAdmin.Core
                     continue;
                 }
 
-                IList<MenuAuthorizationModel> menuAuthorizationModels = childMenu.MenuAuthorizationModels;
+                IList<PageAuthorizationModel> menuAuthorizationModelsByUrl = SecurityBusiness.GetMenuAuthorizationModelsByUrl(childMenu.Url);
 
-                if (menuAuthorizationModels.Any(
-                        model => (model.UserId == userModel.Id || roleModels.Any(roleModel => roleModel.Id == model.RoleId) && model.ReadPermission)))
+                if (menuAuthorizationModelsByUrl.Any(
+                    model => (model.UserId == userModel.Id || roleModels.Any(roleModel => roleModel.Id == model.RoleId) && model.Permission == "Read")))
                 {
                     menuModel.ChildMenus.Add(childMenu);
                 }

@@ -34,8 +34,9 @@
 
                 @helper ShowTree(MenuModel childMenuItem)
                 {
+                    string url = string.IsNullOrEmpty(childMenuItem.Url) ? "javascript:;" : childMenuItem.Url;
                     <li class="nav-item">
-                        <a href="javascript:;" class="nav-link nav-toggle">
+                        <a href="@url" class="nav-link nav-toggle">
                             <i class="@childMenuItem.Icon"></i>
                             <span class="title">@childMenuItem.Name</span>
                             @if (childMenuItem.ChildMenus.Any())

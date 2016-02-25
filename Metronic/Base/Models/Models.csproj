@@ -75,9 +75,9 @@
   <ItemGroup>
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Menu.cs" />
-    <Compile Include="Entities\MenuAuthorization.cs" />
+    <Compile Include="Entities\PageAuthorization.cs" />
     <Compile Include="Models\CountryModel.cs" />
-    <Compile Include="Models\MenuAuthorizationModel.cs" />
+    <Compile Include="Models\PageAuthorizationModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Entities\Department.cs" />

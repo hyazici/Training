@@ -19,7 +19,6 @@ namespace PoneraAdmin.Controllers
             _departmentBusiness = new DepartmentBusiness();
         }
 
-        [AuthorizeAction("Research")]
         [ActionPermission(ActionPermissions.Read)]
         public ActionResult Index()
         {

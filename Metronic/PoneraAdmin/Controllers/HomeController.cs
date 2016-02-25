@@ -7,7 +7,7 @@ using Ponera.PoneraAdmin.Core;
 
 namespace PoneraAdmin.Controllers
 {
-    public class HomeController : SecureBaseController
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {

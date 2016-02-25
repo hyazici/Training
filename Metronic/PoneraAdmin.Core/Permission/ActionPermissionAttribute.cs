@@ -5,13 +5,19 @@ namespace Ponera.PoneraAdmin.Core.Permission
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class ActionPermissionAttribute : Attribute
     {
-        private readonly ActionPermissions _actionPermission;
+        private readonly string _actionPermission;
 
-        public ActionPermissionAttribute(ActionPermissions actionPermission)
+        public ActionPermissionAttribute(ActionPermissions actionPermissions)
+            : this(actionPermissions.ToString())
+        {
+            
+        }
+
+        public ActionPermissionAttribute(string actionPermission)
         {
             _actionPermission = actionPermission;
         }
 
-        public ActionPermissions Permission => _actionPermission;
+        public string Permission => _actionPermission;
     }
 }

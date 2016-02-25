@@ -6,10 +6,10 @@ using System.Web.Mvc;
 using Ponera.Base.BusinessLayer;
 using Ponera.Base.Models;
 using Ponera.PoneraAdmin.Core;
+using Ponera.PoneraAdmin.Core.Permission;
 
 namespace PoneraAdmin.Controllers
 {
-    [AuthorizeAction()]
     public class CountryController : SecureBaseController
     {
         private readonly SecurityBusiness _securityBusiness;
@@ -20,43 +20,16 @@ namespace PoneraAdmin.Controllers
             _securityBusiness = new SecurityBusiness();
             _countryBusiness=new CountryBusiness();
         }
-        // GET: Country
+
+        [ActionPermission(ActionPermissions.Read)]
         public ActionResult Index()
         {
             IList<CountryModel> _country = _countryBusiness.GetCountrys();
             return View(_country);
         }
 
-        // GET: Country/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Country/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Country/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // POST: Role/Create
-        [HttpPost]
+        [ActionPermission(ActionPermissions.Save)]
         public ActionResult Save(CountryModel countryModel)
         {
             try
@@ -79,28 +52,7 @@ namespace PoneraAdmin.Controllers
             }
         }
 
-        // GET: Country/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Country/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+        [ActionPermission(ActionPermissions.Delete)]
         public ActionResult Delete(int id)
         {
             try
@@ -115,6 +67,7 @@ namespace PoneraAdmin.Controllers
             }
         }
 
+        [ActionPermission(ActionPermissions.Read)]
         public ActionResult GetById(int id)
         {
             CountryModel countryById = _countryBusiness.GetCountryById(id);
