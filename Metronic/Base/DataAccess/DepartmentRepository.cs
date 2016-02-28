@@ -2,11 +2,12 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Ponera.Base.DataAccess.Contracts;
 using Ponera.Base.Entities;
 
 namespace Ponera.Base.DataAccess
 {
-    public class DepartmentRepository : BaseRepository<Department, int>
+    public class DepartmentRepository : BaseRepository<Department, int>, IDepartmentRepository
     {
         public IList<Department> GetAllDepartments(bool? deleted = false)
         {

@@ -13,5 +13,10 @@ namespace PoneraAdmin.Controllers
         {
             return View();
         }
+
+        public ActionResult OnError(string message)
+        {
+            return View(message);
+        }
     }
 }

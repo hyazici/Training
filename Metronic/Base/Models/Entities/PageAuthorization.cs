@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ponera.Base.Entities
 {
-    public class PageAuthorization : IEntity
+    public class PageAuthorization : IAuditEntity
     {
         public int Id { get; set; }
 

@@ -2631,6 +2631,7 @@
     <Content Include="Views\Templates\_FormTemplate.cshtml" />
     <Content Include="Views\Templates\_GridTemplate.cshtml" />
     <Content Include="Views\Country\Index.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2644,6 +2645,14 @@
     <ProjectReference Include="..\Base\BusinessLayer\BusinessLayer.csproj">
       <Project>{492736d9-f77c-4bd1-b49c-6ab94ac05c6c}</Project>
       <Name>BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Base\ExceptionHandling\ExceptionHandling\ExceptionHandling.csproj">
+      <Project>{130cd8b6-2a55-473f-905b-6fa9b106baf1}</Project>
+      <Name>ExceptionHandling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Base\ExceptionHandling\Exceptions\Exceptions.csproj">
+      <Project>{5e447d83-dc50-492c-8ab2-8e715e23e027}</Project>
+      <Name>Exceptions</Name>
     </ProjectReference>
     <ProjectReference Include="..\Base\Models\Models.csproj">
       <Project>{b20f0536-9479-4839-87ae-bf1e9349a496}</Project>

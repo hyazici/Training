@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PoneraAdmin.Models
+namespace Ponera.Base.ViewModel
 {
     public class RegisterViewModel
     {

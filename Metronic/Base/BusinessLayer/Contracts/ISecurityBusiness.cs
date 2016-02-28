@@ -1,0 +1,26 @@
+﻿using System.Collections.Generic;
+using Ponera.Base.Models;
+
+namespace Ponera.Base.BusinessLayer.Contracts
+{
+    public interface ISecurityBusiness
+    {
+        void AddRole(RoleModel roleModel);
+
+        void AddUser(UserModel userModel);
+
+        void DeleteRoleById(int id);
+
+        IList<PageAuthorizationModel> GetMenuAuthorizationModelsByUrl(string url);
+
+        RoleModel GetRoleById(int id);
+
+        IList<RoleModel> GetRoles();
+
+        UserModel GetUserByEmailAddress(string email);
+
+        void UpdateRole(RoleModel roleModel);
+
+        void UpdateUser(UserModel userModel);
+    }
+}

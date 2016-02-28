@@ -1,9 +1,10 @@
 ﻿using System.Linq;
+using Ponera.Base.DataAccess.Contracts;
 using Ponera.Base.Entities;
 
 namespace Ponera.Base.DataAccess
 {
-    public class UserRepository : BaseRepository<User, int>
+    public class UserRepository : BaseRepository<User, int>, IUserRepository
     {
         public User GetUserByEmailAddress(string email, bool? deleted = false)
         {

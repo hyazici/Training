@@ -5,20 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Ponera.Base.BusinessLayer.Contracts;
 using Ponera.Base.BusinessLayer.Extensions;
+using Ponera.Base.BusinessLayer.Proxy;
 using Ponera.Base.DataAccess;
+using Ponera.Base.DataAccess.Contracts;
 using Ponera.Base.Entities;
 using Ponera.Base.Models;
 
 namespace Ponera.Base.BusinessLayer
 {
-    public class CountryBusiness
+    public class CountryBusiness : ICountryBusiness
     {
-        private readonly CountryRepository _countryRepository;
+        private readonly ICountryRepository _countryRepository;
 
         public CountryBusiness()
         {
-            _countryRepository = new CountryRepository();
+            _countryRepository = PoneraProxyGenerator.GenerateRepositoryProxy<ICountryRepository, CountryRepository>();
 
             // TODO : @deniz Buradaki mapping işlemleri bunu yönetecek ayrı bir class'a taşınacak.
             Mapper.CreateMap<Country, CountryModel>();

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Ponera.Base.BusinessLayer;
+using Ponera.Base.BusinessLayer.Contracts;
+using Ponera.Base.BusinessLayer.Proxy;
 using Ponera.Base.Models;
 using Ponera.PoneraAdmin.Core;
 using Ponera.PoneraAdmin.Core.Permission;
@@ -12,11 +14,11 @@ namespace PoneraAdmin.Controllers
 {
     public class DepartmentController : SecureBaseController
     {
-       private DepartmentBusiness _departmentBusiness;
+        private IDepartmentBusiness _departmentBusiness;
 
         public DepartmentController()
         {
-            _departmentBusiness = new DepartmentBusiness();
+            _departmentBusiness = PoneraProxyGenerator.GenerateBusinessProxy<IDepartmentBusiness, DepartmentBusiness>();
         }
 
         [ActionPermission(ActionPermissions.Read)]

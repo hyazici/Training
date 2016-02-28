@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Ponera.Base.Entities;
 
-namespace Ponera.Base.DataAccess
+namespace Ponera.Base.DataAccess.Contracts
 {
     public interface IRepository<TEntity, TPrimaryKey>
-                where TEntity : class, IEntity
+        where TEntity : class, IEntity
     {
         TEntity GetById(TPrimaryKey primaryKey);
 

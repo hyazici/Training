@@ -5,8 +5,8 @@ using System.Web.Mvc;
 using Ponera.Base.BusinessLayer;
 using Ponera.Base.Models;
 using Ponera.Base.Security;
+using Ponera.Base.ViewModel;
 using Ponera.PoneraAdmin.Core;
-using PoneraAdmin.Models;
 
 namespace PoneraAdmin.Controllers
 {

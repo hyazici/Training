@@ -1,20 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Ponera.Base.BusinessLayer.Contracts;
 using Ponera.Base.BusinessLayer.Extensions;
+using Ponera.Base.BusinessLayer.Proxy;
 using Ponera.Base.DataAccess;
+using Ponera.Base.DataAccess.Contracts;
 using Ponera.Base.Entities;
 using Ponera.Base.Models;
 
 namespace Ponera.Base.BusinessLayer
 {
-    public class MenuBusiness
+    public class MenuBusiness : IMenuBusiness
     {
-        private readonly MenuRepository _menuRepository;
+        private readonly IMenuRepository _menuRepository;
 
         public MenuBusiness()
         {
-            _menuRepository = new MenuRepository();
+            _menuRepository = PoneraProxyGenerator.GenerateRepositoryProxy<IMenuRepository, MenuRepository>();
 
             Mapper.CreateMap<MenuModel, Menu>();
             Mapper.CreateMap<Menu, MenuModel>();

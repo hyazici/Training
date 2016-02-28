@@ -4,24 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Ponera.Base.BusinessLayer.Contracts;
 using Ponera.Base.BusinessLayer.Extensions;
+using Ponera.Base.BusinessLayer.Proxy;
 using Ponera.Base.DataAccess;
+using Ponera.Base.DataAccess.Contracts;
 using Ponera.Base.Entities;
 using Ponera.Base.Models;
 
 namespace Ponera.Base.BusinessLayer
 {
-    public class SecurityBusiness
+    public class SecurityBusiness : ISecurityBusiness
     {
-        private readonly UserRepository _userRepository;
-        private readonly RoleRepository _roleRepository;
-        private readonly PageAuhorizationRepository _pageAuhorizationRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
+        private readonly IPageAuhorizationRepository _pageAuhorizationRepository;
 
         public SecurityBusiness()
         {
-            _userRepository = new UserRepository();
-            _roleRepository = new RoleRepository();
-            _pageAuhorizationRepository = new PageAuhorizationRepository();
+            _userRepository = PoneraProxyGenerator.GenerateRepositoryProxy<IUserRepository, UserRepository>();
+            _roleRepository = PoneraProxyGenerator.GenerateRepositoryProxy<IRoleRepository, RoleRepository>();
+            _pageAuhorizationRepository = PoneraProxyGenerator.GenerateRepositoryProxy<IPageAuhorizationRepository, PageAuhorizationRepository>();
 
             // TODO : @deniz Buradaki mapping işlemleri bunu yönetecek ayrı bir class'a taşınacak.
             Mapper.CreateMap<User, UserModel>();

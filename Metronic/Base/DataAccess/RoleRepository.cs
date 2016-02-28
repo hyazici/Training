@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Ponera.Base.DataAccess.Contracts;
 using Ponera.Base.Entities;
 
 namespace Ponera.Base.DataAccess
 {
-    public class RoleRepository : BaseRepository<Role, int>
+    public class RoleRepository : BaseRepository<Role, int>, IRoleRepository
     {
         public IList<Role> GetRolesByUserId(int userId)
         {

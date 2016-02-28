@@ -87,9 +87,17 @@
       <Project>{d8dc588c-1a05-4c53-af3c-d6dfe25c6792}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExceptionHandling\Exceptions\Exceptions.csproj">
+      <Project>{5e447d83-dc50-492c-8ab2-8e715e23e027}</Project>
+      <Name>Exceptions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{b20f0536-9479-4839-87ae-bf1e9349a496}</Project>
       <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Notification\Notification\Notification.csproj">
+      <Project>{2d46f966-ff01-4fed-8a31-82254d9e33f7}</Project>
+      <Name>Notification</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

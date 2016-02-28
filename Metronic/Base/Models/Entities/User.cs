@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ponera.Base.Entities
 {
-    public class User : IEntity
+    public class User : IAuditEntity
     {
         public int Id { get; set; }
 

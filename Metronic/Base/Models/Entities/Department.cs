@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ponera.Base.Entities
 {
-    public class Department : IEntity
+    public class Department : IAuditEntity
     {
         public int Id { get; set; }
 

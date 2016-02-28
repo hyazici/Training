@@ -38,6 +38,12 @@ namespace Ponera.PoneraAdmin.Core
                 return;
             }
 
+            if (roleModels.Any(model => model.RoleName == "Admin"))
+            {
+                base.OnActionExecuting(filterContext);
+                return;
+            }
+
             var customAttributes = filterContext.ActionDescriptor.GetCustomAttributes(typeof (ActionPermissionAttribute), false);
 
             if (!customAttributes.Any())

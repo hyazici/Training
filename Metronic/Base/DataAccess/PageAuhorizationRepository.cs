@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Ponera.Base.DataAccess.Contracts;
 using Ponera.Base.Entities;
 
 namespace Ponera.Base.DataAccess
 {
-    public class PageAuhorizationRepository : BaseRepository<PageAuthorization, int>
+    public class PageAuhorizationRepository : BaseRepository<PageAuthorization, int>, IPageAuhorizationRepository
     {
         public IList<PageAuthorization> GetPageAuthorizationsByUrl(string url, bool? deleted = false)
         {
