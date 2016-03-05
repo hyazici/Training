@@ -41,19 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IMailService.cs" />
     <Compile Include="MailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\BusinessLayer\BusinessLayer.csproj">
-      <Project>{492736d9-f77c-4bd1-b49c-6ab94ac05c6c}</Project>
-      <Name>BusinessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DataAccess\DataAccess.csproj">
-      <Project>{d8dc588c-1a05-4c53-af3c-d6dfe25c6792}</Project>
-      <Name>DataAccess</Name>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Contracts\Contracts.csproj">
+      <Project>{6fe57d6a-556f-4e74-a588-30d4cfcb9620}</Project>
+      <Name>Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Models\Models.csproj">
       <Project>{b20f0536-9479-4839-87ae-bf1e9349a496}</Project>

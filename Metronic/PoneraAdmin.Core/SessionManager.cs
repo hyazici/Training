@@ -1,26 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web;
+using Ponera.Base.Contracts;
 using Ponera.Base.Models;
 
 namespace Ponera.PoneraAdmin.Core
 {
-    public static class SessionManager
+    public class SessionManager : ISessionManager
     {
-        public static IEnumerable<MenuModel> MenuModels
+        public T GetSessionValue<T>(string key) where T : class
+        {
+            object sessionObjects = HttpContext.Current.Session[key];
+
+            return sessionObjects as T;
+        }
+
+        public void SetSessionValue(string key, object value)
+        {
+            HttpContext.Current.Session[key] = value;
+        }
+
+        public UserModel User
         {
             get
             {
-                object objMenus = HttpContext.Current.Session["Menus"];
+                return GetSessionValue<UserModel>("CurrentUser");
+            }
 
-                return objMenus as IList<MenuModel>;
+            set
+            {
+                SetSessionValue("CurrentUser", value);
+            }
+        }
+
+        public IList<MenuModel> UserMenus
+        {
+            get
+            {
+                return GetSessionValue<IList<MenuModel>>("UserMenus");
             }
             set
             {
-                HttpContext.Current.Session["Menus"] = value;
+                SetSessionValue("UserMenus", value);
+            }
+        }
+
+        public IList<MenuModel> Menus
+        {
+            get
+            {
+                return GetSessionValue<IList<MenuModel>>("Menus");
+            }
+            set
+            {
+                SetSessionValue("Menus", value);
             }
         }
     }

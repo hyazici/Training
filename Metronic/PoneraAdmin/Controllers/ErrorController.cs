@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Ponera.Base.ViewModel;
 using Ponera.PoneraAdmin.Core;
 
 namespace PoneraAdmin.Controllers
@@ -11,12 +12,27 @@ namespace PoneraAdmin.Controllers
     {
         public ActionResult UnauthorizedAccess()
         {
-            return View();
+            ErrorViewModel errorViewModel = new ErrorViewModel()
+            {
+                ErrorMessage = "Bu işlemi yapmaya yetkiniz yok"
+            };
+
+            return View(errorViewModel);
         }
 
-        public ActionResult OnError(string message)
+        public ActionResult OnError(string message = null)
         {
-            return View(message);
+            if (string.IsNullOrEmpty(message))
+            {
+                // TODO : @deniz default mesajı set etmek gerekiyor
+            }
+
+            ErrorViewModel errorViewModel = new ErrorViewModel()
+            {
+                ErrorMessage = message
+            };
+
+            return View(errorViewModel);
         }
     }
 }

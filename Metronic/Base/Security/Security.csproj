@@ -54,8 +54,8 @@
       <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
@@ -79,13 +79,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
-      <Project>{492736d9-f77c-4bd1-b49c-6ab94ac05c6c}</Project>
-      <Name>BusinessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{d8dc588c-1a05-4c53-af3c-d6dfe25c6792}</Project>
-      <Name>DataAccess</Name>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{6fe57d6a-556f-4e74-a588-30d4cfcb9620}</Project>
+      <Name>Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\ExceptionHandling\Exceptions\Exceptions.csproj">
       <Project>{5e447d83-dc50-492c-8ab2-8e715e23e027}</Project>
@@ -95,12 +91,9 @@
       <Project>{b20f0536-9479-4839-87ae-bf1e9349a496}</Project>
       <Name>Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Notification\Notification\Notification.csproj">
-      <Project>{2d46f966-ff01-4fed-8a31-82254d9e33f7}</Project>
-      <Name>Notification</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

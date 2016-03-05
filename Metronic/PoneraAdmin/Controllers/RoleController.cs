@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Ponera.Base.BusinessLayer;
-using Ponera.Base.BusinessLayer.Contracts;
-using Ponera.Base.BusinessLayer.Proxy;
+using Ponera.Base.Contracts.BusinessLayer;
 using Ponera.Base.Models;
 using Ponera.PoneraAdmin.Core;
 
@@ -13,11 +11,10 @@ namespace PoneraAdmin.Controllers
     {
         private readonly ISecurityBusiness _securityBusiness;
 
-        public RoleController()
+        public RoleController(ISecurityBusiness securityBusiness)
         {
-            _securityBusiness = PoneraProxyGenerator.GenerateBusinessProxy<ISecurityBusiness, SecurityBusiness>();
+            _securityBusiness = securityBusiness;
         }
-
 
         public ActionResult Index()
         {

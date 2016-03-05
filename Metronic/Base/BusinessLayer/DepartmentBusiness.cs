@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using AutoMapper;
-using Ponera.Base.BusinessLayer.Contracts;
-using Ponera.Base.BusinessLayer.Proxy;
-using Ponera.Base.DataAccess;
-using Ponera.Base.DataAccess.Contracts;
+
+using Ponera.Base.Contracts.BusinessLayer;
+using Ponera.Base.Contracts.DataAccess;
 using Ponera.Base.Entities;
 using Ponera.Base.Models;
 
@@ -16,9 +15,9 @@ namespace Ponera.Base.BusinessLayer
     {
         private readonly IDepartmentRepository _departmentRepository;
 
-        public DepartmentBusiness()
+        public DepartmentBusiness(IDepartmentRepository departmentRepository)
         {
-            _departmentRepository = PoneraProxyGenerator.GenerateRepositoryProxy<IDepartmentRepository, DepartmentRepository>();
+            _departmentRepository = departmentRepository;
 
             Mapper.CreateMap<Department, DepartmentModel>();
             Mapper.CreateMap<DepartmentModel, Department>();

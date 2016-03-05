@@ -17,10 +17,6 @@ namespace Ponera.Base.ExceptionHandling.Exceptions
         {
         }
 
-        protected BaseUserLevelException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-
         protected BaseUserLevelException(string message, Exception innerException) : base(message, innerException)
         {
         }

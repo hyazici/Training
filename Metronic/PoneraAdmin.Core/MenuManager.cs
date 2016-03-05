@@ -1,30 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ponera.Base.BusinessLayer;
+using Ponera.Base.Contracts;
+using Ponera.Base.Contracts.BusinessLayer;
 using Ponera.Base.Models;
-using Ponera.Base.Security;
 
 namespace Ponera.PoneraAdmin.Core
 {
-    public static class MenuManager
+    public class MenuManager : IMenuManager
     {
-        private static readonly MenuBusiness MenuBusiness = new MenuBusiness();
-        private static readonly SecurityBusiness SecurityBusiness = new SecurityBusiness();
+        private readonly IMenuBusiness _menuBusiness;
+        private readonly ISecurityBusiness _securityBusiness;
+        private readonly ISessionManager _sessionManager;
 
-        private static IList<MenuModel> FlatMenuModels = new List<MenuModel>();
-
-        public static IEnumerable<MenuModel> GetUserMenuModels()
+        public MenuManager(IMenuBusiness menuBusiness, ISecurityBusiness securityBusiness, ISessionManager sessionManager)
         {
-            FlatMenuModels = MenuBusiness.GetMenuModels();
-            IEnumerable<MenuModel> mainMenus = FlatMenuModels.Where(model => model.ParentId == null);
+            _menuBusiness = menuBusiness;
+            _securityBusiness = securityBusiness;
+            _sessionManager = sessionManager;
+        }
+
+        public IList<MenuModel> GetUserMenuModels(IList<MenuModel> menuModels)
+        {
+            IEnumerable<MenuModel> mainMenus = menuModels.Where(model => model.ParentId == null);
 
             List<MenuModel> usersMenusList = new List<MenuModel>();
             foreach (MenuModel menuModel in mainMenus)
             {
-                FillChildMenus(menuModel, FlatMenuModels);
+                FillChildMenus(menuModel, menuModels);
 
                 if (menuModel.ChildMenus.Any())
                 {
@@ -35,12 +37,14 @@ namespace Ponera.PoneraAdmin.Core
             return usersMenusList;
         }
 
-        public static IList<MenuModel> GetFlatMenuModels()
+        public IList<MenuModel> GetMenuModels()
         {
-            return FlatMenuModels;
+            IList<MenuModel> menuModels = _menuBusiness.GetMenuModels();
+
+            return menuModels;
         }
 
-        private static void FillChildMenus(MenuModel menuModel, IList<MenuModel> menuModels)
+        private void FillChildMenus(MenuModel menuModel, IList<MenuModel> menuModels)
         {
             List<MenuModel> childMenus = menuModels
                 .Where(model => model.ParentId == menuModel.Id)
@@ -54,7 +58,7 @@ namespace Ponera.PoneraAdmin.Core
 
             foreach (MenuModel childMenu in childMenus)
             {
-                UserModel userModel = AuthenticationManager.User;
+                UserModel userModel = _sessionManager.User;
                 IList<RoleModel> roleModels = userModel.Roles;
 
                 if (roleModels.Any(model => model.RoleName == "Admin") || string.IsNullOrEmpty(childMenu.Url))
@@ -63,7 +67,7 @@ namespace Ponera.PoneraAdmin.Core
                     continue;
                 }
 
-                IList<PageAuthorizationModel> menuAuthorizationModelsByUrl = SecurityBusiness.GetMenuAuthorizationModelsByUrl(childMenu.Url);
+                IList<PageAuthorizationModel> menuAuthorizationModelsByUrl = _securityBusiness.GetMenuAuthorizationModelsByUrl(childMenu.Url);
 
                 if (menuAuthorizationModelsByUrl.Any(
                     model => (model.UserId == userModel.Id || roleModels.Any(roleModel => roleModel.Id == model.RoleId) && model.Permission == "Read")))

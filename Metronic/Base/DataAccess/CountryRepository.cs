@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ponera.Base.DataAccess.Contracts;
+using Ponera.Base.Contracts.DataAccess;
 using Ponera.Base.Entities;
 
 namespace Ponera.Base.DataAccess

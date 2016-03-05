@@ -4,7 +4,10 @@ using System.Net;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Ponera.Base.BusinessLayer;
+using Autofac;
+using Ponera.Base.Contracts;
+using Ponera.Base.Contracts.BusinessLayer;
+using Ponera.Base.DependencyInjection.Bootstrapper;
 using Ponera.Base.Models;
 using Ponera.PoneraAdmin.Core.Permission;
 using AuthenticationManager = Ponera.Base.Security.AuthenticationManager;
@@ -13,16 +16,16 @@ namespace Ponera.PoneraAdmin.Core
 {
     public class SecureBaseController : BaseController
     {
-        private readonly SecurityBusiness _securityBusiness;
+        private readonly ISecurityBusiness _securityBusiness;
 
         public SecureBaseController()
         {
-            _securityBusiness = new SecurityBusiness();
+            _securityBusiness = Bootstrapper.Container.Resolve<ISecurityBusiness>();
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            UserModel userModel = AuthenticationManager.User;
+            UserModel userModel = SessionManager.User;
             IList<RoleModel> roleModels = userModel.Roles;
 
             if (userModel == null)

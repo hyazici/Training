@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Ponera.Base.BusinessLayer;
-using Ponera.Base.BusinessLayer.Contracts;
-using Ponera.Base.BusinessLayer.Proxy;
+using Ponera.Base.Contracts.BusinessLayer;
 using Ponera.Base.Models;
 using Ponera.PoneraAdmin.Core;
 using Ponera.PoneraAdmin.Core.Permission;
@@ -16,9 +12,12 @@ namespace PoneraAdmin.Controllers
     {
         private readonly ICountryBusiness _countryBusiness;
          
-        public CountryController()
+        public CountryController(ICountryBusiness countryBusiness)
         {
-            _countryBusiness = PoneraProxyGenerator.GenerateBusinessProxy<ICountryBusiness, CountryBusiness>();
+            _countryBusiness = countryBusiness;
+
+            // Elle register ettiğimiz nesneleri container'dan almak için
+            // ICountryBusiness business = Bootstrapper.Container.Resolve<ICountryBusiness>();
         }
 
         [ActionPermission(ActionPermissions.Read)]

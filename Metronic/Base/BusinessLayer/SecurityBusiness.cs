@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
-using Ponera.Base.BusinessLayer.Contracts;
+using Ponera.Base.BusinessLayer.Attributes;
 using Ponera.Base.BusinessLayer.Extensions;
-using Ponera.Base.BusinessLayer.Proxy;
-using Ponera.Base.DataAccess;
-using Ponera.Base.DataAccess.Contracts;
+using Ponera.Base.Contracts.BusinessLayer;
+using Ponera.Base.Contracts.DataAccess;
 using Ponera.Base.Entities;
 using Ponera.Base.Models;
 
@@ -20,11 +17,13 @@ namespace Ponera.Base.BusinessLayer
         private readonly IRoleRepository _roleRepository;
         private readonly IPageAuhorizationRepository _pageAuhorizationRepository;
 
-        public SecurityBusiness()
+        public SecurityBusiness(IUserRepository userRepository, 
+            IRoleRepository roleRepository, 
+            IPageAuhorizationRepository pageAuhorizationRepository)
         {
-            _userRepository = PoneraProxyGenerator.GenerateRepositoryProxy<IUserRepository, UserRepository>();
-            _roleRepository = PoneraProxyGenerator.GenerateRepositoryProxy<IRoleRepository, RoleRepository>();
-            _pageAuhorizationRepository = PoneraProxyGenerator.GenerateRepositoryProxy<IPageAuhorizationRepository, PageAuhorizationRepository>();
+            _userRepository = userRepository;
+            _roleRepository = roleRepository;
+            _pageAuhorizationRepository = pageAuhorizationRepository;
 
             // TODO : @deniz Buradaki mapping işlemleri bunu yönetecek ayrı bir class'a taşınacak.
             Mapper.CreateMap<User, UserModel>();
@@ -157,6 +156,8 @@ namespace Ponera.Base.BusinessLayer
         {
             Role role = _roleRepository.GetById(id);
 
+            // TODO : @deniz admin role silinemez, update edilemez
+
             if (role == null)
             {
                 // TODO : @deniz birşey yapmalı?
@@ -167,10 +168,42 @@ namespace Ponera.Base.BusinessLayer
             UpdateRole(role);
         }
 
+        [UnitOfWork]
+        public void DummyMethod()
+        {
+            User user = new User()
+            {
+                CreateDate = DateTime.Now,
+                CreateUserId = 0,
+                Deleted = false,
+                Email = "sadasd",
+                FirstName = "Test",
+                LastName = "Test",
+                LastLoginDate = DateTime.Now,
+                Password = "test",
+            };
+
+            _userRepository.Add(user);
+
+            Role role = new Role()
+            {
+                CreateDate = DateTime.Now,
+                CreateUserId = 0,
+                Deleted = false,
+                RoleName = "TestName"
+            };
+
+            _roleRepository.Add(role);
+
+            // throw new Exception();
+        }
+
         private void UpdateRole(Role role)
         {
             role.UpdateDate = DateTime.Now;
             role.UpdateUserId = 0;
+
+            // TODO : @deniz admin role silinemez, update edilemez
 
             _roleRepository.Update(role);
         }

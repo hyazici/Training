@@ -3,6 +3,9 @@ using System.Data;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Ponera.Base.BusinessLayer;
+using Ponera.Base.Contracts;
+using Ponera.Base.Contracts.BusinessLayer;
+using Ponera.Base.Contracts.Security;
 using Ponera.Base.Models;
 using Ponera.Base.Security;
 using Ponera.Base.ViewModel;
@@ -12,8 +15,15 @@ namespace PoneraAdmin.Controllers
 {
     public class AccountController : BaseController
     {
-        public AccountController()
+        private readonly IAuthenticationManager _authenticationManager;
+        private readonly IMenuManager _menuManager;
+        private readonly ISessionManager _sessionManager;
+
+        public AccountController(IAuthenticationManager authenticationManager, IMenuManager menuManager, ISessionManager sessionManager)
         {
+            _authenticationManager = authenticationManager;
+            _menuManager = menuManager;
+            _sessionManager = sessionManager;
         }
 
         public ActionResult Login(string returnUrl)
@@ -31,7 +41,7 @@ namespace PoneraAdmin.Controllers
                 return View(model);
             }
 
-            bool login = AuthenticationManager.Login(model);
+            bool login = _authenticationManager.Login(model);
 
             if (!login)
             {
@@ -40,7 +50,11 @@ namespace PoneraAdmin.Controllers
             }
 
             //TODO:@deniz merkezi bir yere taşınacak
-            SessionManager.MenuModels = MenuManager.GetUserMenuModels();
+            IList<MenuModel> menuModels = _menuManager.GetMenuModels();
+            IList<MenuModel> userMenuModels = _menuManager.GetUserMenuModels(menuModels);
+
+            _sessionManager.Menus = menuModels;
+            _sessionManager.UserMenus = userMenuModels;
 
             return RedirectToLocal(returnUrl);
         }
@@ -64,14 +78,14 @@ namespace PoneraAdmin.Controllers
                 return View(model);
             }
 
-            AuthenticationManager.RegisterUser(model);
+            _authenticationManager.RegisterUser(model);
 
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult LogOff()
         {
-            AuthenticationManager.Logout();
+            _authenticationManager.Logout();
 
             return RedirectToAction("Login", "Account");
         }

@@ -9,19 +9,15 @@ namespace Ponera.Base.ExceptionHandling.Exceptions
 {
     public class UnhandledUserLevelException : UserLevelException
     {
-        protected UnhandledUserLevelException()
+        public UnhandledUserLevelException()
         {
         }
 
-        protected UnhandledUserLevelException(string message) : base(message)
+        public UnhandledUserLevelException(string message) : base(message)
         {
         }
 
-        protected UnhandledUserLevelException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-
-        protected UnhandledUserLevelException(string message, Exception innerException) : base(message, innerException)
+        public UnhandledUserLevelException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

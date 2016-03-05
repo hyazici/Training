@@ -1,19 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Ponera.Base.Contracts;
+using Ponera.Base.Contracts.Security;
 using Ponera.Base.Models;
 
 namespace Ponera.Base.Security
 {
-    public static class AuthorizationManager
+    public class AuthorizationManager : IAuthorizationManager
     {
-        public static bool IsUserAuthorized(string[] roles)
+        private readonly ISessionManager _sessionManager;
+
+        public AuthorizationManager(ISessionManager sessionManager)
+        {
+            _sessionManager = sessionManager;
+        }
+
+        public bool IsUserAuthorized(string[] roles)
         {
             if (roles == null || roles.Length == 0)
             {
                 return false;
             }
 
-            UserModel userModel = AuthenticationManager.User;
+            UserModel userModel = _sessionManager.User;
 
             if (userModel == null)
             {

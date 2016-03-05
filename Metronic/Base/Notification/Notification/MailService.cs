@@ -4,12 +4,9 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-
-using Ponera.Base.BusinessLayer.Proxy;
-using Ponera.Base.DataAccess;
-using Ponera.Base.DataAccess.Contracts;
+using Ponera.Base.Contracts;
+using Ponera.Base.Contracts.DataAccess;
 using Ponera.Base.Entities;
-using Ponera.Base.Notification.Contracts;
 
 namespace Ponera.Base.Notification
 {
@@ -23,7 +20,7 @@ namespace Ponera.Base.Notification
 
         private readonly IEmailLogRepository _emailLogRepository;
 
-        public MailService()
+        public MailService(IEmailLogRepository emailLogRepository)
         {
             _emailHost = ConfigurationManager.AppSettings["EmailHost"];
             string emailPortValue = ConfigurationManager.AppSettings["EmailPort"];
@@ -37,8 +34,7 @@ namespace Ponera.Base.Notification
 
             _emailEnableSsl = bool.Parse(enableSslValue);
 
-            // TODO : @deniz buradaki business layer referance'ı kaldıralacak
-            _emailLogRepository = PoneraProxyGenerator.GenerateRepositoryProxy<IEmailLogRepository, EmailLogRepository>();
+            _emailLogRepository = emailLogRepository;
         }
 
         public void SendEmail(MailMessage mailMessage)

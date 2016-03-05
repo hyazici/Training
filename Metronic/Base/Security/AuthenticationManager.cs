@@ -1,39 +1,32 @@
 ﻿using System;
 using System.Net.Mail;
-using System.Web;
-using Ponera.Base.BusinessLayer;
-using Ponera.Base.BusinessLayer.Contracts;
-using Ponera.Base.BusinessLayer.Proxy;
+using Ponera.Base.Contracts;
+using Ponera.Base.Contracts.BusinessLayer;
+using Ponera.Base.Contracts.Security;
 using Ponera.Base.Models;
-using Ponera.Base.Notification;
-using Ponera.Base.Notification.Contracts;
 using Ponera.Base.ViewModel;
 
 namespace Ponera.Base.Security
 {
-    public static class AuthenticationManager
+    public class AuthenticationManager : IAuthenticationManager
     {
-        private static readonly ISecurityBusiness SecurityBusiness = PoneraProxyGenerator.GenerateBusinessProxy<ISecurityBusiness, SecurityBusiness>();
-        private static readonly IMailService MailService = new MailService();
+        private readonly ISecurityBusiness _securityBusiness;
+        private readonly IMailService _mailService;
+        private readonly ISessionManager _sessionManager;
 
-        public static UserModel User
+        public AuthenticationManager(ISecurityBusiness securityBusiness, IMailService mailService, ISessionManager sessionManager)
         {
-            get
-            {
-                object objUser = HttpContext.Current.Session["CurrentUser"];
-
-                return objUser as UserModel;
-            }
-
-            set { HttpContext.Current.Session["CurrentUser"] = value; }
+            _securityBusiness = securityBusiness;
+            _mailService = mailService;
+            _sessionManager = sessionManager;
         }
 
-        public static bool Login(LoginViewModel loginViewModel)
+        public bool Login(LoginViewModel loginViewModel)
         {
             string email = loginViewModel.Email;
             string password = loginViewModel.Password;
 
-            UserModel userModel = SecurityBusiness.GetUserByEmailAddress(email);
+            UserModel userModel = _securityBusiness.GetUserByEmailAddress(email);
 
             if (userModel == null)
             {
@@ -47,14 +40,14 @@ namespace Ponera.Base.Security
 
             userModel.LastLoginDate = DateTime.Now;
 
-            SecurityBusiness.UpdateUser(userModel);
+            _securityBusiness.UpdateUser(userModel);
 
-            User = userModel;
+            _sessionManager.User = userModel;
 
             return true;
         }
 
-        public static void RegisterUser(RegisterViewModel model)
+        public void RegisterUser(RegisterViewModel model)
         {
             UserModel userModel = new UserModel();
             userModel.FirstName = model.FirstName;
@@ -62,22 +55,22 @@ namespace Ponera.Base.Security
             userModel.Email = model.Email;
             userModel.Password = model.Password; // TODO : @deniz password encode edilecek.
 
-            SecurityBusiness.AddUser(userModel);
+            _securityBusiness.AddUser(userModel);
 
-            MailService.SendEmail(new MailMessage()
+            _mailService.SendEmail(new MailMessage()
             {
                 From = new MailAddress("poneraintranet@gmail.com", "Ponera Admin"),
                 Subject = "Hoş Geldiniz",
                 Body = "Ponera Admin paneline başarıyla kaydoldunuz, tebrik ederiz.",
                 IsBodyHtml = false,
-                CC = { new MailAddress("huseyin.yazici@ponera.com.tr")},
+                CC = { new MailAddress("huseyin.yazici@ponera.com.tr") },
                 To = { new MailAddress(userModel.Email) }
             });
         }
 
-        public static void Logout()
+        public void Logout()
         {
-            User = null;
+            _sessionManager.User = null;
         }
     }
 }

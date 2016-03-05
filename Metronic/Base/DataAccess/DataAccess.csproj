@@ -54,16 +54,7 @@
     <Compile Include="DbManager.cs" />
     <Compile Include="DepartmentRepository.cs" />
     <Compile Include="ErrorLogRepository.cs" />
-    <Compile Include="Contracts\ICountryRepository.cs" />
-    <Compile Include="Contracts\IDepartmentRepository.cs" />
-    <Compile Include="Contracts\IErrorLogRepository.cs" />
-    <Compile Include="Contracts\IMenuRepository.cs" />
-    <Compile Include="Contracts\IEmailLogRepository.cs" />
     <Compile Include="Interceptors\DataAccessExceptionHandlingInterceptor.cs" />
-    <Compile Include="Contracts\IPageAuhorizationRepository.cs" />
-    <Compile Include="Contracts\IRepository.cs" />
-    <Compile Include="Contracts\IRoleRepository.cs" />
-    <Compile Include="Contracts\IUserRepository.cs" />
     <Compile Include="PageAuhorizationRepository.cs" />
     <Compile Include="MenuRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +63,10 @@
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{6fe57d6a-556f-4e74-a588-30d4cfcb9620}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExceptionHandling\ExceptionHandling\ExceptionHandling.csproj">
       <Project>{130cd8b6-2a55-473f-905b-6fa9b106baf1}</Project>
       <Name>ExceptionHandling</Name>
@@ -89,6 +84,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

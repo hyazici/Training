@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Ponera.Base.DataAccess.Contracts;
+using Ponera.Base.Contracts.DataAccess;
 using Ponera.Base.Entities;
 
 namespace Ponera.Base.DataAccess

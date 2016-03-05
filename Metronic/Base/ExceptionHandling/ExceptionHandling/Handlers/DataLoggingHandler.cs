@@ -63,7 +63,10 @@ namespace Ponera.Base.ExceptionHandling.Handlers
             {
                 string absolutePath = HttpContext.Current.Request.Url.AbsolutePath;
 
-                exception.Data.Add("AbsolutePath", absolutePath);
+                if (!exception.Data.Contains("AbsolutePath"))
+                {
+                    exception.Data.Add("AbsolutePath", absolutePath);
+                }
             }
         }
     }

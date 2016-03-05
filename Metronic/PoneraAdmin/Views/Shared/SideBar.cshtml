@@ -1,10 +1,7 @@
-﻿@using System.Activities.Statements
-@using Ponera.Base.Models
-@using Ponera.PoneraAdmin.Core
-@using AuthenticationManager = Ponera.Base.Security.AuthenticationManager;
+﻿@using Ponera.Base.Models
 
 @{
-    var userModel = AuthenticationManager.User;
+    var menuModels = (IList<MenuModel>)ViewData["UserMenus"];
 }
 <!-- BEGIN SIDEBAR -->
 <div class="page-sidebar-wrapper">
@@ -27,7 +24,7 @@
             <!-- END SIDEBAR TOGGLER BUTTON -->
         </li>
             @*                    <li class="nav-item start active open">*@
-                @foreach (MenuModel menuModel in SessionManager.MenuModels)
+                @foreach (MenuModel menuModel in menuModels)
                 {
                     @ShowTree(menuModel)
                 }

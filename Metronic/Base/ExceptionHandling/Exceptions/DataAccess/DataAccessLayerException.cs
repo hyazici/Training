@@ -10,19 +10,15 @@ namespace Ponera.Base.ExceptionHandling.Exceptions.DataAccess
     [Serializable]
     public class DataAccessLayerException : BaseException
     {
-        protected DataAccessLayerException()
+        public DataAccessLayerException()
         {
         }
 
-        protected DataAccessLayerException(string message) : base(message)
+        public DataAccessLayerException(string message) : base(message)
         {
         }
 
-        protected DataAccessLayerException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected DataAccessLayerException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public DataAccessLayerException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoneraAdmin", "PoneraAdmin\PoneraAdmin.csproj", "{39883F26-E37B-41AA-A5CA-DBD66E083D5D}"
 EndProject
@@ -26,6 +26,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{4F535957-D86A-4FFF-982C-0663812BA008}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification", "Base\Notification\Notification\Notification.csproj", "{2D46F966-FF01-4FED-8A31-82254D9E33F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DepedencyInjection", "DepedencyInjection", "{27C35B0B-8D35-49DD-8B75-AB26469352E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper", "Base\DependencyInjection\Bootstrapper\Bootstrapper.csproj", "{F502839B-E0D8-44F7-9C4A-6D6B8143673C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Base\Contracts\Contracts.csproj", "{6FE57D6A-556F-4E74-A588-30D4CFCB9620}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer.Module", "Base\BusinessLayer.Module\BusinessLayer.Module.csproj", "{8040B765-8174-4A21-819B-E14B96F385AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Module", "Base\DataAccess.Module\DataAccess.Module.csproj", "{DA8572A5-4F77-4932-8449-7825CA90A0A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +79,22 @@ Global
 		{2D46F966-FF01-4FED-8A31-82254D9E33F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D46F966-FF01-4FED-8A31-82254D9E33F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D46F966-FF01-4FED-8A31-82254D9E33F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F502839B-E0D8-44F7-9C4A-6D6B8143673C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F502839B-E0D8-44F7-9C4A-6D6B8143673C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F502839B-E0D8-44F7-9C4A-6D6B8143673C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F502839B-E0D8-44F7-9C4A-6D6B8143673C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FE57D6A-556F-4E74-A588-30D4CFCB9620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FE57D6A-556F-4E74-A588-30D4CFCB9620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FE57D6A-556F-4E74-A588-30D4CFCB9620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FE57D6A-556F-4E74-A588-30D4CFCB9620}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8040B765-8174-4A21-819B-E14B96F385AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8040B765-8174-4A21-819B-E14B96F385AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8040B765-8174-4A21-819B-E14B96F385AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8040B765-8174-4A21-819B-E14B96F385AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA8572A5-4F77-4932-8449-7825CA90A0A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA8572A5-4F77-4932-8449-7825CA90A0A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA8572A5-4F77-4932-8449-7825CA90A0A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA8572A5-4F77-4932-8449-7825CA90A0A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +109,11 @@ Global
 		{130CD8B6-2A55-473F-905B-6FA9B106BAF1} = {A1611560-E88D-48B2-BA47-D4694FDF3693}
 		{4F535957-D86A-4FFF-982C-0663812BA008} = {37FBC71D-C335-4BD9-B5BA-2F22074398CE}
 		{2D46F966-FF01-4FED-8A31-82254D9E33F7} = {4F535957-D86A-4FFF-982C-0663812BA008}
+		{27C35B0B-8D35-49DD-8B75-AB26469352E6} = {37FBC71D-C335-4BD9-B5BA-2F22074398CE}
+		{F502839B-E0D8-44F7-9C4A-6D6B8143673C} = {27C35B0B-8D35-49DD-8B75-AB26469352E6}
+		{6FE57D6A-556F-4E74-A588-30D4CFCB9620} = {37FBC71D-C335-4BD9-B5BA-2F22074398CE}
+		{8040B765-8174-4A21-819B-E14B96F385AD} = {37FBC71D-C335-4BD9-B5BA-2F22074398CE}
+		{DA8572A5-4F77-4932-8449-7825CA90A0A4} = {37FBC71D-C335-4BD9-B5BA-2F22074398CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45

@@ -57,9 +57,11 @@
     <Compile Include="ExceptionHandlingConfiguration.cs" />
     <Compile Include="ExceptionHandler.cs" />
     <Compile Include="Handlers\DataLoggingHandler.cs" />
+    <Compile Include="Handlers\WrapExceptionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

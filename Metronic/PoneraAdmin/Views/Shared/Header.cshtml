@@ -1,4 +1,9 @@
-﻿        <!-- BEGIN HEADER -->
+﻿@using Ponera.Base.Models
+@{
+    var userModel = (UserModel)ViewData["CurrentUser"];
+}
+
+<!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
     <div class="page-header-inner ">
@@ -327,7 +332,7 @@
                 <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <img alt="" class="img-circle" src="/Content/img/avatar3_small.jpg" />
-                        <span class="username username-hide-on-mobile"> @Ponera.Base.Security.AuthenticationManager.User.FirstName </span>
+                        <span class="username username-hide-on-mobile"> @userModel.FirstName </span>
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">

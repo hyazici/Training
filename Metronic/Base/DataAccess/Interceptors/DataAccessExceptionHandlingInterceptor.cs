@@ -8,6 +8,12 @@ namespace Ponera.Base.DataAccess.Interceptors
 {
     public class DataAccessExceptionHandlingInterceptor : IInterceptor
     {
+        // TODO : depedency verilebilir.
+        public DataAccessExceptionHandlingInterceptor()
+        {
+            
+        }
+
         public void Intercept(IInvocation invocation)
         {
             try
