@@ -38,6 +38,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Module", "Base\DataAccess.Module\DataAccess.Module.csproj", "{DA8572A5-4F77-4932-8449-7825CA90A0A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Attributes", "Attributes", "{16780EDD-0B24-40C4-AB28-6D5D13876EE2}"
+	ProjectSection(SolutionItems) = preProject
+		Base\BusinessLayer\Attributes\UnitOfWorkAttribute.cs = Base\BusinessLayer\Attributes\UnitOfWorkAttribute.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
