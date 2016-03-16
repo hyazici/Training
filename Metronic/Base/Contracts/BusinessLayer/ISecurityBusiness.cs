@@ -13,6 +13,8 @@ namespace Ponera.Base.Contracts.BusinessLayer
 
         IList<PageAuthorizationModel> GetMenuAuthorizationModelsByUrl(string url);
 
+        IList<UserModel> GetAllUsers();
+
         RoleModel GetRoleById(int id);
 
         IList<RoleModel> GetRoles();

@@ -55,6 +55,20 @@ namespace Ponera.Base.BusinessLayer
             return userModel;
         }
 
+        //UNAL
+        public IList<UserModel> GetAllUsers()
+        {
+            IList<User> users = _userRepository.GetAll(false);
+            IEnumerable<UserModel> userModels = users.Select(user => Mapper.Map<User, UserModel>(user));
+
+            if (userModels == null)
+            {
+                return null;
+            }
+
+            return userModels.ToList();
+        }
+
         public void UpdateUser(UserModel userModel)
         {
             if (userModel == null)
