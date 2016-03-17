@@ -19,6 +19,7 @@
     </div>
     <div class="portlet-body form" style="display: block;">
         <form class="form-horizontal" role="form">
+
             <div class="form-body">
                 <div class="form-group">
                     <label class="col-md-2 control-label">Adı</label>
@@ -47,11 +48,12 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10 right1">
-                    <input id="submitButton" type="button" value="Kaydet" class="btn btn-default" />
+                    <input  id="submitButton" type="submit" name="Save" value="Kaydet" class="btn btn-default" onclick="location.href='@Url.Action("Save", "User")'"/>
                     <input id="resetButton" type="button" value="Temizle" class="btn btn-default" />
                     <input id="deleteButton" type="button" value="Sil" class="btn btn-default" />
                 </div>
             </div>
+
         </form>
     </div>
 </div>
@@ -66,7 +68,7 @@
         <div class="table-toolbar">
             <div class="row">
                 <div class="col-md-6">
-                    
+
                 </div>
             </div>
         </div>

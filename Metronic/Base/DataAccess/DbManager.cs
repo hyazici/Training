@@ -18,7 +18,7 @@ namespace Ponera.Base.DataAccess
         public IEnumerable<T> GetAll<T>(bool? deleted = null)
         {
             var entityType = typeof(T);
-            string query = $"Select * From {entityType.Name}";
+            string query = $"Select * From [{entityType.Name}]";
 
             if (deleted.HasValue)
             {

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Ponera.Base.Contracts.BusinessLayer;
 using Ponera.Base.Models;
 using Ponera.PoneraAdmin.Core;
+using Ponera.PoneraAdmin.Core.Permission;
 
 namespace PoneraAdmin.Controllers
 {
@@ -23,6 +24,30 @@ namespace PoneraAdmin.Controllers
             IList<UserModel> _users = _securityBusiness.GetAllUsers();
 
             return View(_users);
+        }
+
+        [HttpPost]
+        [ActionPermission(ActionPermissions.Save)]
+        public ActionResult Save(UserModel userModel)
+        {
+            try
+            {
+                if (userModel.Id == 0)
+                {
+                    _securityBusiness.AddUser(userModel);
+                }
+                else
+                {
+                    _securityBusiness.UpdateUser(userModel);
+                }
+
+                return Json(userModel);
+
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
     }
 }
