@@ -24,31 +24,31 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Adı</label>
                     <div class="col-md-10">
-                        <input id="FirstName" type="text" class="form-control" placeholder="Ad">
+                        <input id="FirstName" type="text" name="FirstName" class="form-control ponera-form-control" placeholder="Ad">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Soyadı</label>
                     <div class="col-md-10">
-                        <input id="LastName" type="text" class="form-control" placeholder="Soyad">
+                        <input id="LastName" type="text" name="LastName" class="form-control ponera-form-control" placeholder="Soyad">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Email</label>
                     <div class="col-md-10">
-                        <input id="Email" type="text" class="form-control" placeholder="Email">
+                        <input id="Email" type="text" name="Email" class="form-control ponera-form-control" placeholder="Email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Şifre</label>
                     <div class="col-md-10">
-                        <input id="Password" type="text" class="form-control" placeholder="Şifre">
+                        <input id="Password" name="Password" type="text" class="form-control ponera-form-control" placeholder="Şifre">
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10 right1">
-                    <input  id="submitButton" type="submit" name="Save" value="Kaydet" class="btn btn-default" onclick="location.href='@Url.Action("Save", "User")'"/>
+                    <input  id="submitButton" type="button" value="Kaydet" class="btn btn-default"/>
                     <input id="resetButton" type="button" value="Temizle" class="btn btn-default" />
                     <input id="deleteButton" type="button" value="Sil" class="btn btn-default" />
                 </div>
@@ -73,37 +73,41 @@
             </div>
         </div>
         <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-            <div class="table-scrollable">
-                <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+            <div class="table-scrollable responsive">
+                <table class="table table-hover" id="sample_1" role="grid" aria-describedby="sample_1_info">
                     <thead>
-                        <tr role="row">
-                            <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Id
+                    <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Id
                                 activate to sort column descending" aria-sort="ascending" style="width: 193px;">Id</th>
-                            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Ad
+                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Ad
                                 activate to sort column ascending" style="width: 286px;">Ad</th>
-                            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Soyad
+                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Soyad
                                 activate to sort column ascending" style="width: 286px;">Soyad</th>
-                            <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Email
+                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Email
                                 activate to sort column ascending" style="width: 286px;">Email</th>
-                        </tr>
+                    </tr>
                     </thead>
                     <tbody>
-                        @for (int i = 0; i < Model.Count; i++)
-                        {
-                            string rowClass = i % 2 == 0 ? "gradeX even" : "gradeX odd";
-                            UserModel userModel = Model[i];
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        string rowClass = i%2 == 0 ? "gradeX even" : "gradeX odd";
+                        UserModel userModel = Model[i];
 
-                            <tr class="@rowClass" role="row">
-                                <td class="sorting_1">@userModel.Id</td>
-                                <td class="sorting_1">@userModel.FirstName</td>
-                                <td class="sorting_1">@userModel.LastName</td>
-                                <td class="sorting_1">@userModel.Email</td>
-                            </tr>
+                        <tr onclick="window.location.href = 'GetById';" role="row" data-id="@userModel.Id">
+                            <td class="sorting_1">@userModel.Id</td>
+                            <td class="sorting_1">@userModel.FirstName</td>
+                            <td class="sorting_1">@userModel.LastName</td>
+                            <td class="sorting_1">@userModel.Email</td>
+                        </tr>
 
-                        }
+                    }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/user")
+}

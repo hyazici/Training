@@ -46,6 +46,11 @@ namespace PoneraAdmin
                 "~/Scripts/Views/crudHelper.js",
                 "~/Scripts/Views/Country/Country.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/user").Include(
+                "~/Scripts/Views/namespace.js",
+                "~/Scripts/Views/crudHelper.js",
+                "~/Scripts/Views/User/user.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 

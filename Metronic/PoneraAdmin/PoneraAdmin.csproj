@@ -2594,6 +2594,7 @@
     <Content Include="Scripts\Views\crudHelper.js" />
     <Content Include="Scripts\Views\namespace.js" />
     <Content Include="Scripts\Views\Role\role.js" />
+    <Content Include="Scripts\Views\User\user.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

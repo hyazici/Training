@@ -5,15 +5,19 @@ namespace Ponera.Base.Contracts.BusinessLayer
 {
     public interface ISecurityBusiness
     {
-        void AddRole(RoleModel roleModel);
-
         void AddUser(UserModel userModel);
+
+        UserModel GetUserById(int id);
+
+        void DeleteUserById(int id);
+
+        IList<UserModel> GetAllUsers();
+
+        void AddRole(RoleModel roleModel);
 
         void DeleteRoleById(int id);
 
         IList<PageAuthorizationModel> GetMenuAuthorizationModelsByUrl(string url);
-
-        IList<UserModel> GetAllUsers();
 
         RoleModel GetRoleById(int id);
 

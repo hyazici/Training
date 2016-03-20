@@ -56,6 +56,21 @@ namespace Ponera.Base.BusinessLayer
         }
 
         //UNAL
+        public void DeleteUserById(int id)
+        {
+            if (id == 0)
+            {
+                // TODO: exception fırlat
+            }
+
+            User user = _userRepository.GetById(id);
+
+            user.Deleted = true;
+
+            UserModel userModel = user.Map<UserModel>();
+            UpdateUser(userModel);
+        }
+
         public IList<UserModel> GetAllUsers()
         {
             IList<User> users = _userRepository.GetAll(false);
@@ -103,6 +118,19 @@ namespace Ponera.Base.BusinessLayer
             user.CreateUserId = 0;
 
             _userRepository.Add(user);
+        }
+
+        public UserModel GetUserById(int id)
+        {
+            if (id == 0)
+            {
+                // TODO : exception fırlat
+            }
+
+            User user = _userRepository.GetById(id);
+            UserModel userModel = user.Map<UserModel>();
+
+            return userModel;
         }
 
         public IList<RoleModel> GetRoles()

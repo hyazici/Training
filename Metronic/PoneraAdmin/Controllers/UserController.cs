@@ -49,5 +49,31 @@ namespace PoneraAdmin.Controllers
                 return View();
             }
         }
+
+        public ActionResult GetById(int id)
+        {
+            UserModel userById = _securityBusiness.GetUserById(id);
+
+            if (userById == null)
+            {
+                // TODO :asdasd
+            }
+
+            return Json(userById, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                _securityBusiness.DeleteUserById(id);
+
+                return new EmptyResult();
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

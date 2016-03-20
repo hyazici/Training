@@ -26,7 +26,7 @@ namespace Ponera.PoneraAdmin.Core
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             UserModel userModel = SessionManager.User;
-            IList<RoleModel> roleModels = userModel.Roles;
+            
 
             if (userModel == null)
             {
@@ -40,6 +40,8 @@ namespace Ponera.PoneraAdmin.Core
                 base.OnActionExecuting(filterContext);
                 return;
             }
+
+            IList<RoleModel> roleModels = userModel.Roles;
 
             if (roleModels.Any(model => model.RoleName == "Admin"))
             {
