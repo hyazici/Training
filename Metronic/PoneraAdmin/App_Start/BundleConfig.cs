@@ -12,6 +12,7 @@ namespace PoneraAdmin
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/bootstrap.js",
+                        "~/Scripts/bootstrap-confirmation.js",
                         "~/Scripts/js.cookie.min.js",
                         "~/Scripts/bootstrap-hover-dropdown.js",
                         "~/Scripts/jquery.slimscroll.js",
@@ -31,33 +32,23 @@ namespace PoneraAdmin
                         "~/Scripts/quick-sidebar.js",
                         "~/Scripts/datatables.js",
                         "~/Scripts/datatables.bootstrap.js",
-                        "~/Scripts/mustache.js"));
+                        "~/Scripts/mustache.js",
+                        "~/Scripts/toastr.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/login").Include(
-                "~/Scripts/login.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/role").Include(
+            bundles.Add(new ScriptBundle("~/bundles/helpsers").Include(
                 "~/Scripts/Views/namespace.js",
-                "~/Scripts/Views/crudHelper.js",
-                "~/Scripts/Views/Role/role.js"));
+                "~/Scripts/Views/ajaxHelper.js",
+                "~/Scripts/Views/messageHelper.js",
+                "~/Scripts/Views/crudHelper.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/country").Include(
-                "~/Scripts/Views/namespace.js",
-                "~/Scripts/Views/crudHelper.js",
-                "~/Scripts/Views/Country/Country.js"));
+            bundles.Add(new ScriptBundle("~/bundles/role").Include("~/Scripts/Views/Role/role.js"));
+            bundles.Add(new ScriptBundle("~/bundles/country").Include("~/Scripts/Views/Country/country.js"));
+            bundles.Add(new ScriptBundle("~/bundles/user").Include("~/Scripts/Views/User/user.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/user").Include(
-                "~/Scripts/Views/namespace.js",
-                "~/Scripts/Views/crudHelper.js",
-                "~/Scripts/Views/User/user.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
-
+            bundles.Add(new ScriptBundle("~/bundles/login").Include("~/Scripts/login.js"));
 
             bundles.Add(new StyleBundle("~/Content/MainLayout").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/simple-line-icons/simple-line-icons.css",
                       "~/Content/Themes/uniformjs/default/css/uniform.default.css",
@@ -71,7 +62,9 @@ namespace PoneraAdmin
                       "~/Content/layout/css/themes/darkblue.css",
                       "~/Content/layout/css/custom.css",
                       "~/Content/datatables/datatables.css",
-                      "~/Content/datatables/datatables.bootstrap.css"));
+                      "~/Content/datatables/datatables.bootstrap.css",
+                      "~/Content/toastr.css",
+                      "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/login").Include(
                 "~/Content/login.css"));

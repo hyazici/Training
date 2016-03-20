@@ -7,6 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Index</h2>
 
 @{
@@ -19,7 +20,7 @@
     Html.RenderPartial("~/Views/Templates/_GridTemplate.cshtml", new GridTemplateModel()
     {
         Model = Model,
-        DisplayColumns = PropertyNameHelper.GetPropertyNames<RoleModel>(model => model.RoleName)
+        DisplayColumns = PropertyNameHelper.GetPropertyNames<RoleModel>(model => model.RoleName)        
     });
 }
 

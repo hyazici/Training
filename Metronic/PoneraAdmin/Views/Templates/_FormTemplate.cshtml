@@ -8,7 +8,7 @@
     PropertyInfo[] propertyInfos = Model.GetProperties();
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "ponera-form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -53,7 +53,11 @@
             <div class="col-md-offset-2 col-md-10">
                 <input id="submitButton" type="button" value="Kaydet" class="btn btn-default" />
                 <input id="resetButton" type="button" value="Temizle" class="btn btn-default" />
-                <input id="deleteButton" type="button" value="Sil" class="btn btn-default" />
+                <input id="deleteButton"
+                       data-toggle="confirmation"
+                       data-btnOkLabel="Evet"
+                       data-btnCancelLabel="Hayır" 
+                       data-title="Silmek istediğinize emin misiniz?" type="button" value="Sil" class="btn btn-default" />
             </div>
         </div>
     </div>

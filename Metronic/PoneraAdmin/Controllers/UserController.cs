@@ -30,24 +30,17 @@ namespace PoneraAdmin.Controllers
         [ActionPermission(ActionPermissions.Save)]
         public ActionResult Save(UserModel userModel)
         {
-            try
-            {
-                if (userModel.Id == 0)
-                {
-                    _securityBusiness.AddUser(userModel);
-                }
-                else
-                {
-                    _securityBusiness.UpdateUser(userModel);
-                }
 
-                return Json(userModel);
-
-            }
-            catch (Exception ex)
+            if (userModel.Id == 0)
             {
-                return View();
+                _securityBusiness.AddUser(userModel);
             }
+            else
+            {
+                _securityBusiness.UpdateUser(userModel);
+            }
+
+            return Json(userModel);
         }
 
         public ActionResult GetById(int id)
@@ -64,16 +57,9 @@ namespace PoneraAdmin.Controllers
 
         public ActionResult Delete(int id)
         {
-            try
-            {
-                _securityBusiness.DeleteUserById(id);
+            _securityBusiness.DeleteUserById(id);
 
-                return new EmptyResult();
-            }
-            catch
-            {
-                return View();
-            }
+            return new EmptyResult();
         }
     }
 }

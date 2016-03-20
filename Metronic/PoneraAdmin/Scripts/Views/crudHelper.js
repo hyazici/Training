@@ -1,67 +1,25 @@
 ﻿/// <reference path="../../jquery-2.1.4.js" />
 /// <reference path="../namespace.js" />
 /// <reference path="~/Scripts/mustache.js" />
-
-window.Ponera.Utils.AjaxHelper = (function ($) {
-    return {
-        post: function (url, jsonData, onSuccess, onError) {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: JSON.stringify(jsonData),
-                success: function (data, status, jqXHR) {
-                    if (onSuccess) {
-                        onSuccess(data, status, jqXHR);
-                    }
-                },
-                error: function (jqXHR, status, errorThrown) {
-                    if (onError) {
-                        onError(jqXHR, status, errorThrown);
-                    }
-                },
-                datatype: "json",
-                contentType: "application/json; charset=utf-8"
-            });
-        },
-        getById: function (url, id, onSuccess, onError) {
-            $.ajax({
-                type: "GET",
-                url: url + "/" + id,
-                success: function (data, status, jqXHR) {
-                    if (onSuccess) {
-                        onSuccess(data, status, jqXHR);
-                    }
-                },
-                error: function (jqXHR, status, errorThrown) {
-                    if (onError) {
-                        onError(jqXHR, status, errorThrown);
-                    }
-                }
-            });
-        }
-    }
-}($));
-
-window.Ponera.Utils.MessageHelper = (function () {
-
-    return {
-        showMessage: function (title, message) {
-            alert(message);
-        },
-        showDialog: function (title, message) {
-            var confirmed = confirm(message);
-            return confirmed;
-        }
-    }
-
-}());
+/// <reference path="ajaxHelper.js" />
 
 window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
     var _options = {};
     var _pageModel = {};
 
+    var setDeleteButtonState = function (state) {
+        $('#deleteButton').prop("disabled", state);
+
+        if (state && state === true) {
+            $('#deleteButton').removeAttr("data-toggle");
+        } else {
+            $('#deleteButton').attr('data-toggle', 'confirmation');
+        }
+    }
+
     var resetForm = function () {
         _pageModel.Id = 0;
+        setDeleteButtonState(true);
 
         $('.ponera-form-control').each(function () {
             var name = $(this).attr('name');
@@ -72,10 +30,14 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
     }
 
     $(document).ready(function () {
-        _pageModel.Id = 0;
+        resetForm();
 
         $('#resetButton').click(function() {
             resetForm();
+
+            if (_options.onReset) {
+                _options.onReset();
+            }
         });
 
         $('#dataTable').on("click", ".editButton", function() {
@@ -93,8 +55,17 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
                     $('.ponera-form-control[name=' + key + ']').val(_pageModel[key]);
                     $('#dataTable tr[data-id=' + id + '] label[data-colunmName=' + key + ']').text(_pageModel[key]);
                 }
+                setDeleteButtonState(false);
+
+                if (_options.afterGet) {
+                    _options.afterGet(status);
+                }
             }, function(jqXHR, status, errorThrown) {
-                messageHelper.showMessage("Title", "Bir hata oluştu");
+                messageHelper.showNotificationError("Hata!", "Bir hata oluştu. Düzelmezse sistem yöneticisine başvurun");
+
+                if (_options.afterGet) {
+                    _options.afterGet(status);
+                }
             });
         });
 
@@ -109,39 +80,40 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
             });
 
             if (valid) {
+                $('div.page-content-wrapper').block({
+                    message: 'Lütfen Bekleyiniz...',
+                    animate: true
+                });
                 ajaxHelper.post(_options.postUrl, _pageModel,
-                    function (data, status, jqXHR) {
+                    function(data, status, jqXHR) {
                         if (_pageModel.Id === 0 || _pageModel.Id === '') {
                             var template = $('#newItemTemplate').html();
                             _pageModel.Id = data.Id;
                             var rendered = Mustache.render(template, _pageModel);
                             $('#dataTable tbody').append(rendered);
 
-                            messageHelper.showMessage("Title", "Başarıyla eklendi");
+                            messageHelper.showNotificationSuccess("", "Başarıyla eklendi");
                         } else {
-                            messageHelper.showMessage("Title", "Başarıyla güncellendi");
+                            messageHelper.showNotificationSuccess("", "Başarıyla güncellendi");
 
                             for (var key in _pageModel) {
-                                $('#dataTable tr[data-id=' + _pageModel.Id + '] label[data-colunmName=' + key + ']').text(_pageModel[key]);
+                                if (_pageModel.hasOwnProperty(key)) {
+                                    $('#dataTable tr[data-id=' + _pageModel.Id + '] label[data-colunmName=' + key + ']').text(_pageModel[key]);
+                                }
                             }
                         }
-
                         resetForm();
-                    },
-                    function() {
-                        messageHelper.showMessage("Title", "Bir hata oluştu");
+                    }, function() {
+                        messageHelper.showNotificationError("Hata!", "Bir hata oluştu. Düzelmezse sistem yöneticisine başvurun");
+                    }, function() {
+                        $('div.page-content-wrapper').unblock();
                     });
             }
         });
 
-        $('#deleteButton').click(function() {
+        $('#deleteButton').on('confirmed.bs.confirmation', function () {
             if (_pageModel.Id === 0) {
-                messageHelper.showMessage("Title", "Bir seçim yapınız");
-                return;
-            }
-            var confirmed = messageHelper.showDialog("Title", "Silmek istediğinize emin misiniz?");
-
-            if (!confirmed) {
+                messageHelper.showNotificationWarning("Uyarı!", "Silmek istediğiniz satırı seçin");
                 return;
             }
 
@@ -152,9 +124,31 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
                     resetForm();
                 },
                 function() {
-                    messageHelper.showMessage("Title", "Bir hata oluştu");
+                    messageHelper.showNotificationError("Hata!", "Bir hata oluştu. Düzelmezse sistem yöneticisine başvurun");
                 });
         });
+
+        //$('#deleteButton').click(function() {
+        //    if (_pageModel.Id === 0) {
+        //        messageHelper.showNotificationWarning("Uyarı!", "Silmek istediğiniz satırı seçin");
+        //        return;
+        //    }
+        //    var confirmed = messageHelper.showDialog("Title", "Silmek istediğinize emin misiniz?");
+
+        //    if (!confirmed) {
+        //        return;
+        //    }
+
+        //    ajaxHelper.getById(_options.deleteUrl, _pageModel.Id,
+        //        function() {
+        //            $('tr[data-id=' + _pageModel.Id + ']').remove();
+
+        //            resetForm();
+        //        },
+        //        function() {
+        //            messageHelper.showNotificationError("Hata!", "Bir hata oluştu. Düzelmezse sistem yöneticisine başvurun");
+        //        });
+        //});
     });
 
     return {
@@ -166,7 +160,8 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
         // _options.beforeSave
         // _options.afterSave
         // _options.beforeDelete
-        // _options.afterDelete     
+        // _options.afterDelete    
+        // _options.onReset
         setOptions: function(options) {
             _options = options;
         },

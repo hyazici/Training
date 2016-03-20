@@ -1,4 +1,4 @@
-﻿window.Ponera.Role = (function (crudHelper) {
+﻿window.Ponera.User = (function (crudHelper) {
     $(document).ready(function () {
 
         crudHelper.setOptions({
