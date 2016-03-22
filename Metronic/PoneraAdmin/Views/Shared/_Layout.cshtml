@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/MainLayout")
+    <link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet" />
+
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
     @{
@@ -38,7 +40,8 @@
     </div>
 
     @Scripts.Render("~/bundles/MainLayout")
-    @Scripts.Render("~/bundles/helpsers")
+        @Scripts.Render("~/bundles/helpsers")
+        <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

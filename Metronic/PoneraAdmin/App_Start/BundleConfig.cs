@@ -30,6 +30,7 @@ namespace PoneraAdmin
                         "~/Scripts/layout/demo.js",
                         "~/Scripts/dashboard.js",
                         "~/Scripts/quick-sidebar.js",
+                        "~/Scripts/datatableHelper.js",
                         "~/Scripts/datatables.js",
                         "~/Scripts/datatables.bootstrap.js",
                         "~/Scripts/mustache.js",
@@ -39,7 +40,10 @@ namespace PoneraAdmin
                 "~/Scripts/Views/namespace.js",
                 "~/Scripts/Views/ajaxHelper.js",
                 "~/Scripts/Views/messageHelper.js",
-                "~/Scripts/Views/crudHelper.js"));
+                "~/Scripts/Views/crudHelper.js",
+                "~/Scripts/Views/responsiveTable.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/responsiveTable").Include("~/Scripts/Views/responsiveTable.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/role").Include("~/Scripts/Views/Role/role.js"));
             bundles.Add(new ScriptBundle("~/bundles/country").Include("~/Scripts/Views/Country/country.js"));
