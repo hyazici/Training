@@ -30,9 +30,9 @@ namespace PoneraAdmin
                         "~/Scripts/layout/demo.js",
                         "~/Scripts/dashboard.js",
                         "~/Scripts/quick-sidebar.js",
-                        "~/Scripts/datatableHelper.js",
-                        "~/Scripts/datatables.js",
-                        "~/Scripts/datatables.bootstrap.js",
+                        "~/Scripts/datatable.js",
+                        "~/Content/datatables/datatables.js",
+                        "~/Content/datatables/plugins/bootstrap/datatables.bootstrap.js",
                         "~/Scripts/mustache.js",
                         "~/Scripts/toastr.js"));
 
@@ -60,13 +60,13 @@ namespace PoneraAdmin
                       "~/Content/daterangepicker-bs3.css",
                       "~/Content/morris/morris.css",
                       "~/Content/fullcalendar.css",
-                      "~/Content/template/components-rounded.css",
-                      "~/Content/template/plugins.css",
                       "~/Content/layout/css/layout.css",
                       "~/Content/layout/css/themes/darkblue.css",
                       "~/Content/layout/css/custom.css",
                       "~/Content/datatables/datatables.css",
-                      "~/Content/datatables/datatables.bootstrap.css",
+                      "~/Content/template/components-rounded.css",
+                      "~/Content/template/plugins.css",
+                      //"~/Content/datatables/plugins/bootstrap/datatables.bootstrap.css",
                       "~/Content/toastr.css",
                       "~/Content/site.css"));
 
