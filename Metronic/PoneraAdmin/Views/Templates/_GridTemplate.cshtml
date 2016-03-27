@@ -57,7 +57,7 @@
                             PropertyInfo columnProp = propertyInfos.First(info => info.Name == column);
                             object columnValue = columnProp.GetValue(item);
 
-                            <td>
+                            <td data-colunmName="@column">
                                 <label data-colunmName="@column">@columnValue</label>
                             </td>
                         }

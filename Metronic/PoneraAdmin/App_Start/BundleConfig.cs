@@ -40,8 +40,7 @@ namespace PoneraAdmin
                 "~/Scripts/Views/namespace.js",
                 "~/Scripts/Views/ajaxHelper.js",
                 "~/Scripts/Views/messageHelper.js",
-                "~/Scripts/Views/crudHelper.js",
-                "~/Scripts/Views/responsiveTable.js"));
+                "~/Scripts/Views/crudHelper.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/responsiveTable").Include("~/Scripts/Views/responsiveTable.js"));
 

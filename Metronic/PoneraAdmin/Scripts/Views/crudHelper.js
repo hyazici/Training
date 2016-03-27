@@ -5,9 +5,12 @@
 /// <reference path="~/Scripts/Views/namespace.js" />
 /// <reference path="~/Scripts/Views/messageHelper.js" />
 /// <reference path="~/Scripts/Views/responsiveTable.js" />
-window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper, responsiveTable) {
+/// <reference path="~/Content/datatables/datatables.js" />
+window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
     var _options = {};
     var _pageModel = {};
+    var _dataTable;
+    var _selectedRow;
 
     var setDeleteButtonState = function (state) {
         $('#deleteButton').prop("disabled", state);
@@ -19,8 +22,67 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper, resp
         }
     }
 
+    var setUpDataTable = function () {
+        var table = $('#dataTable');
+
+        _dataTable = table.DataTable({
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            // Or you can use remote translation file
+            //"language": {
+            //   url: '//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/Portuguese.json'
+            //},
+
+            // setup buttons extentension: http://datatables.net/extensions/buttons/
+            buttons: [
+                { extend: 'print', className: 'btn default' },
+                { extend: 'pdf', className: 'btn default' },
+                { extend: 'csv', className: 'btn default' }
+            ],
+
+            // setup responsive extension: http://datatables.net/extensions/responsive/
+            responsive: {
+                details: {
+
+                }
+            },
+
+            "order": [
+                [0, 'asc']
+            ],
+
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 10,
+
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+
+            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
+            // So when dropdowns used the scrollable div should be removed. 
+            //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+        });
+    }
+
     var resetForm = function () {
         _pageModel.Id = 0;
+        _selectedRow = null;
         setDeleteButtonState(true);
 
         $('.ponera-form-control').each(function () {
@@ -29,10 +91,13 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper, resp
 
             _pageModel[name] = '';
         });
+
+        $('tr.selected').removeClass('selected');
     }
 
     $(document).ready(function () {
         resetForm();
+        setUpDataTable();
 
         $('#resetButton').click(function() {
             resetForm();
@@ -46,14 +111,11 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper, resp
         //    console.log(table.row(this).data());
         //});
 
-        $('#dataTable tbody').on("click", "tr", function () {
-            var table = $('#dataTable').DataTable();
-            //var rowData = table.row(this).data();
-
-            var tr = $(this);
-            var id = tr.data('id');
+        $('#dataTable tbody').on("click", "tr", function () {            
+            _selectedRow = $(this);
+            var id = _selectedRow.data('id');
             
-            table.$('tr.selected').removeClass('selected');
+            _dataTable.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
 
             if (_options.beforeGet) {
@@ -98,7 +160,6 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper, resp
                 });
                 ajaxHelper.post(_options.postUrl, _pageModel,
                     function (data, status, jqXHR) {
-                        var dataTable = $('#dataTable').DataTable();
                         if (_pageModel.Id === 0 || _pageModel.Id === '') {
                             _pageModel.Id = data.Id;
 
@@ -106,11 +167,15 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper, resp
 
                             for (var x in _pageModel) {
                                 if (_pageModel.hasOwnProperty(x) && x !== "Id") {
-                                    arr.push(_pageModel[x]);
+                                    var label = "<label data-colunmname=" + x + ">" + _pageModel[x] + "</label>";
+                                    arr.push(label);
                                 }
                             }
-                            arr.push("Seç");
-                            dataTable.row.add(arr).draw(false);
+
+                            var addedRow = _dataTable.row.add(arr);
+                            $(addedRow.node()).attr('data-id', data.Id);
+                            addedRow.draw(false);
+
                             messageHelper.showNotificationSuccess("", "Başarıyla eklendi");
                         } else {
                             messageHelper.showNotificationSuccess("", "Başarıyla güncellendi");
@@ -138,7 +203,10 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper, resp
 
             ajaxHelper.getById(_options.deleteUrl, _pageModel.Id,
                 function() {
-                    $('tr[data-id=' + _pageModel.Id + ']').remove();
+                    // $('tr[data-id=' + _pageModel.Id + ']').remove();
+
+                    var row = _dataTable.row(_selectedRow);
+                    row.remove().draw(false);
 
                     resetForm();
                 },
@@ -166,4 +234,4 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper, resp
             return _pageModel;
         }
     }
-}(window, $, Ponera.Utils.AjaxHelper, Ponera.Utils.MessageHelper, Ponera.Utils.ResponsiveTable));
+}(window, $, Ponera.Utils.AjaxHelper, Ponera.Utils.MessageHelper));
