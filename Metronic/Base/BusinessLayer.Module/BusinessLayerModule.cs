@@ -51,6 +51,12 @@ namespace Ponera.Base.BusinessLayer.Module
                 .InterceptedBy(typeof(BusinessLayerExceptionHandlingInterceptor))
                 .InterceptedBy(typeof(UnitOfWorkInterceptor));
 
+            builder.RegisterType<AnketBilgisiBusiness>()
+                .As<IAnketBilgisiBusiness>()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(typeof (BusinessLayerExceptionHandlingInterceptor))
+                .InterceptedBy(typeof (UnitOfWorkInterceptor));
+
             // Notification Dependencies
 
             builder.RegisterType<MailService>()

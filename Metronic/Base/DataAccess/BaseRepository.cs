@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Ponera.Base.Contracts.DataAccess;
+using Ponera.Base.Entities;
 
 
 namespace Ponera.Base.DataAccess
@@ -33,6 +34,13 @@ namespace Ponera.Base.DataAccess
             IList<TEntity> entities = _dbManager.GetAll<TEntity>(deleted).ToList();
 
             return entities;
+        }
+
+        public IList<PagedEntity<TEntity>> GetAllByFilter(int start, int length, string search, int sortColumn, string sortDirection)
+        {
+            List<PagedEntity<TEntity>> pagedEntities = _dbManager.GetAllByFilter<TEntity>(start, length, search, sortColumn, sortDirection).ToList();
+
+            return pagedEntities;
         }
 
         public void Add(TEntity entity)

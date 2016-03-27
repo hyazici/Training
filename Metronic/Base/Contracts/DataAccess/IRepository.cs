@@ -10,6 +10,8 @@ namespace Ponera.Base.Contracts.DataAccess
 
         IList<TEntity> GetAll(bool? deleted = null);
 
+        IList<PagedEntity<TEntity>> GetAllByFilter(int start, int length, string search, int sortColumn, string sortDirection);
+
         void Add(TEntity entity);
 
         void Update(TEntity entity);

@@ -11,6 +11,10 @@ namespace PoneraAdmin.Views.Templates.Models
 
         public IList<string> DisplayColumns { get; set; }
 
+        public IList<string> DisplayColumnNames { get; set; }
+
+        public string DataTableTitle { get; set; }
+
         public IList<string> ColumnOrders { get; set; }
 
         public bool Sortable { get; set; }

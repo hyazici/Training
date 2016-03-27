@@ -41,10 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLayer\IAnketBilgisiBusiness.cs" />
     <Compile Include="BusinessLayer\ICountryBusiness.cs" />
     <Compile Include="BusinessLayer\IDepartmentBusiness.cs" />
     <Compile Include="BusinessLayer\IMenuBusiness.cs" />
     <Compile Include="BusinessLayer\ISecurityBusiness.cs" />
+    <Compile Include="DataAccess\IAnketBilgisiRepository.cs" />
     <Compile Include="DataAccess\ICountryRepository.cs" />
     <Compile Include="DataAccess\IDepartmentRepository.cs" />
     <Compile Include="DataAccess\IEmailLogRepository.cs" />

@@ -1,4 +1,5 @@
 ﻿@using Ponera.Base.Models
+@using PoneraAdmin.Views.Templates.Models
 @model IList<Ponera.Base.Models.UserModel>
 
 @{
@@ -48,65 +49,30 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10 right1">
-                    <input  id="submitButton" type="button" value="Kaydet" class="btn btn-default"/>
-                    <input id="resetButton" type="button" value="Temizle" class="btn btn-default" />
-                    <input id="deleteButton" type="button" value="Sil" class="btn btn-default" />
+                    <input id="submitButton" type="button" value="Kaydet" class="btn btn-default"/>
+                    <input id="resetButton" type="button" value="Temizle" class="btn btn-default"/>
+                    <input id="deleteButton"
+                           data-toggle="confirmation"
+                           data-btnOkLabel="Evet"
+                           data-btnCancelLabel="Hayır"
+                           data-title="Silmek istediğinize emin misiniz?" type="button" value="Sil" class="btn btn-default" />
                 </div>
             </div>
 
         </form>
     </div>
 </div>
-<div class="portlet light bordered">
-    <div class="portlet-title">
-        <div class="caption font-dark">
-            <i class="icon-settings font-dark"></i>
-            <span class="caption-subject bold uppercase">Kullanıcılar</span>
-        </div>
-    </div>
-    <div class="portlet-body">
-        <div class="table-toolbar">
-            <div class="row">
-                <div class="col-md-6">
 
-                </div>
-            </div>
-        </div>
-        <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-            <div class="table-scrollable responsive">
-                <table class="table table-hover" id="sample_1" role="grid" aria-describedby="sample_1_info">
-                    <thead>
-                    <tr role="row">
-                        <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Id
-                                activate to sort column descending" aria-sort="ascending" style="width: 193px;">Id</th>
-                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Ad
-                                activate to sort column ascending" style="width: 286px;">Ad</th>
-                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Soyad
-                                activate to sort column ascending" style="width: 286px;">Soyad</th>
-                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Email
-                                activate to sort column ascending" style="width: 286px;">Email</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @for (int i = 0; i < Model.Count; i++)
-                    {
-                        string rowClass = i%2 == 0 ? "gradeX even" : "gradeX odd";
-                        UserModel userModel = Model[i];
+@{
+    Html.RenderPartial("~/Views/Templates/_GridTemplate.cshtml", new GridTemplateModel()
+    {
+        Model = Model,
+        DisplayColumns = PropertyNameHelper.GetPropertyNames<UserModel>(model => model.FirstName, model => model.LastName, model => model.Email),
+        DisplayColumnNames = new[] {"Ad", "Soyad", "Email"},
+        DataTableTitle = "Kullanıcılar"
+    });
+}
 
-                        <tr onclick="window.location.href = 'GetById';" role="row" data-id="@userModel.Id">
-                            <td class="sorting_1">@userModel.Id</td>
-                            <td class="sorting_1">@userModel.FirstName</td>
-                            <td class="sorting_1">@userModel.LastName</td>
-                            <td class="sorting_1">@userModel.Email</td>
-                        </tr>
-
-                    }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 @section scripts
 {
     @Scripts.Render("~/bundles/user")

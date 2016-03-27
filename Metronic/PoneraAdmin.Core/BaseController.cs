@@ -11,6 +11,7 @@ using Ponera.Base.Contracts;
 using Ponera.Base.DependencyInjection.Bootstrapper;
 using Ponera.Base.ExceptionHandling;
 using Ponera.Base.ExceptionHandling.Exceptions;
+using Ponera.PoneraAdmin.Core.ActionResults;
 
 namespace Ponera.PoneraAdmin.Core
 {
@@ -50,6 +51,16 @@ namespace Ponera.PoneraAdmin.Core
             ViewData["CurrentUser"] = SessionManager.User;
 
             base.OnActionExecuting(filterContext);
+        }
+
+        protected override JsonResult Json(object data, string contentType, Encoding contentEncoding)
+        {
+            return new JsonNetResult() {ContentEncoding = contentEncoding, Data = data, ContentType = contentType};
+        }
+
+        protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return new JsonNetResult() { ContentEncoding = contentEncoding, Data = data, ContentType = contentType, JsonRequestBehavior = behavior};
         }
 
         private ActionResult GetUnauthorizedActionResult(ExceptionContext filterContext, string message, HttpStatusCode httpStatusCode)

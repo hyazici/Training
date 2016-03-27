@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Ponera.Base.Models
 {
@@ -24,6 +25,7 @@ namespace Ponera.Base.Models
 
         public DateTime LastLoginDate { get; set; }
 
+        [JsonIgnore]
         public IList<RoleModel> Roles { get; set; }
     }
 }

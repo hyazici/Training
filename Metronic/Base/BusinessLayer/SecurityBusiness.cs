@@ -67,8 +67,7 @@ namespace Ponera.Base.BusinessLayer
 
             user.Deleted = true;
 
-            UserModel userModel = user.Map<UserModel>();
-            UpdateUser(userModel);
+            UpdateUser(user);
         }
 
         public IList<UserModel> GetAllUsers()
@@ -91,12 +90,24 @@ namespace Ponera.Base.BusinessLayer
                 throw new ArgumentNullException(nameof(userModel));
             }
 
-            User user = Mapper.Map<UserModel, User>(userModel);
+            User user = _userRepository.GetById(userModel.Id);
 
-            user.UpdateDate = DateTime.Now;
-            user.UpdateUserId = 0;
+            if (user == null)
+            {
+                // TODO : throw exception
+            }
 
-            _userRepository.Update(user);
+            // TODO : @deniz aynı email den birden fazla olamaz.
+
+            user.FirstName = userModel.FirstName;
+            user.LastName = userModel.LastName;
+            user.Email = userModel.Email;
+            user.Password = userModel.Password;
+            user.LastLoginDate = userModel.LastLoginDate;
+
+            UpdateUser(user);
+
+            userModel.Id = user.Id;
         }
 
         public void AddUser(UserModel userModel)
@@ -118,6 +129,8 @@ namespace Ponera.Base.BusinessLayer
             user.CreateUserId = 0;
 
             _userRepository.Add(user);
+
+            userModel.Id = user.Id;
         }
 
         public UserModel GetUserById(int id)
@@ -240,6 +253,15 @@ namespace Ponera.Base.BusinessLayer
             // throw new Exception();
         }
 
+        public IList<PageAuthorizationModel> GetMenuAuthorizationModelsByUrl(string url)
+        {
+            IList<PageAuthorization> menuAuthorizationsByMenuId = _pageAuhorizationRepository.GetPageAuthorizationsByUrl(url);
+
+            var menuAuthorizationModels = menuAuthorizationsByMenuId.Select(authorization => authorization.Map<PageAuthorizationModel>()).ToList();
+
+            return menuAuthorizationModels;
+        }
+
         private void UpdateRole(Role role)
         {
             role.UpdateDate = DateTime.Now;
@@ -250,13 +272,12 @@ namespace Ponera.Base.BusinessLayer
             _roleRepository.Update(role);
         }
 
-        public IList<PageAuthorizationModel> GetMenuAuthorizationModelsByUrl(string url)
+        private void UpdateUser(User user)
         {
-            IList<PageAuthorization> menuAuthorizationsByMenuId = _pageAuhorizationRepository.GetPageAuthorizationsByUrl(url);
+            user.UpdateDate = DateTime.Now;
+            user.UpdateUserId = 0;
 
-            var menuAuthorizationModels = menuAuthorizationsByMenuId.Select(authorization => authorization.Map<PageAuthorizationModel>()).ToList();
-
-            return menuAuthorizationModels;
+            _userRepository.Update(user);
         }
     }
 }

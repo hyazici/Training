@@ -9,6 +9,7 @@
     var modelType = listType.GetGenericArguments()[0];
     PropertyInfo[] propertyInfos = modelType.GetProperties();
     IList<string> displayColumns = new List<string>();
+    IList<string> displayColumnNames = Model.DisplayColumnNames;
 
     var modelList = Model.Model;
 
@@ -20,34 +21,45 @@
     {
         displayColumns = propertyInfos.Select(info => info.Name).ToList();
     }
+
+    if (displayColumnNames == null || !displayColumns.Any())
+    {
+        displayColumnNames = displayColumns;
+    }
 }
 
 <div class="portlet box red">
     <div class="portlet-title">
         <div class="caption">
-            <i class="fa fa-globe"></i>Row & Column Reordering
+            <i class="fa fa-globe"></i>@Model.DataTableTitle
         </div>
         <div class="tools"> </div>
     </div>
     <div class="portlet-body">
         <table id="dataTable" class="table table-striped table-bordered table-hover dt-responsive" width="100%">
             <thead>
-                <tr>
-                    @foreach (var column in displayColumns)
-                    {
-                        <th class="all">
-                            @column
-                        </th>
-                    }
-                </tr>
+            <tr>
+                @for (int i = 0; i < displayColumns.Count; i++)
+                {
+                    var name = i + 1 > displayColumns.Count ? displayColumns[i] : displayColumnNames[i];
+
+                    <th class="all">
+                        @name
+                    </th>
+                }
+
+                @*@foreach (var column in displayColumns)
+                {
+                    <th class="all">
+                        @column
+                    </th>
+                }*@
+            </tr>
             </thead>
             <tbody>
             @{
-                int rowIndex = 0;
                 foreach (object item in (modelList as IEnumerable))
                 {
-                    //string rowClass = rowIndex % 2 == 0 ? "gradeX even" : "gradeX odd";
-
                     PropertyInfo idPropInfo = propertyInfos.First(info => info.Name == "Id");
                     object id = idPropInfo.GetValue(item);
 
@@ -61,29 +73,10 @@
                                 <label data-colunmName="@column">@columnValue</label>
                             </td>
                         }
-                        @*<td>
-                                <a href="javascript:;" data-id="@id" class="editButton">Seç</a>
-                            </td>*@
                     </tr>
-
-                    rowIndex++;
                 }
             }
             </tbody>
         </table>
     </div>
 </div>
-
-
-@*<script id="newItemTemplate" type="x-tmpl-mustache">
-    <tr data-id="{{ Id }}">
-        @foreach (var column in displayColumns)
-        {
-            <td>
-                <label data-colunmName="@column">{{ @column }}</label>
-            </td>
-        }
-
-        <td><a href="javascript:;" data-id="{{ Id }}" class="editButton">Seç</a></td>
-    </tr>
-</script>*@

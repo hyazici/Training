@@ -55,6 +55,11 @@ namespace Ponera.Base.DataAccess.Module
                 .As<IUserRepository>()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(typeof (DataAccessExceptionHandlingInterceptor));
+
+            builder.RegisterType<AnketBilgisiRepository>()
+                .As<IAnketBilgisiRepository>()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(typeof (DataAccessExceptionHandlingInterceptor));
         }
 
         public override void OnPreLoad()

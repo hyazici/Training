@@ -77,12 +77,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\AnketBilgisi.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\EmailLog.cs" />
     <Compile Include="Entities\ErrorLog.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\Menu.cs" />
     <Compile Include="Entities\PageAuthorization.cs" />
+    <Compile Include="Entities\PagedEntity.cs" />
+    <Compile Include="Models\AnketBilgisiModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\PageAuthorizationModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\DataTableData.cs" />
     <Compile Include="ViewModel\ErrorViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
   </ItemGroup>

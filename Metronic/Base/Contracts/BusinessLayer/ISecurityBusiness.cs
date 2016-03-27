@@ -28,6 +28,7 @@ namespace Ponera.Base.Contracts.BusinessLayer
         void UpdateRole(RoleModel roleModel);
 
         void UpdateUser(UserModel userModel);
+
         void DummyMethod();
     }
 }

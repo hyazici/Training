@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnketBilgisiBusiness.cs" />
     <Compile Include="Attributes\UnitOfWorkAttribute.cs" />
     <Compile Include="CountryBusiness.cs" />
     <Compile Include="DepartmentBusiness.cs" />

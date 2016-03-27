@@ -47,6 +47,7 @@ namespace PoneraAdmin
             bundles.Add(new ScriptBundle("~/bundles/role").Include("~/Scripts/Views/Role/role.js"));
             bundles.Add(new ScriptBundle("~/bundles/country").Include("~/Scripts/Views/Country/country.js"));
             bundles.Add(new ScriptBundle("~/bundles/user").Include("~/Scripts/Views/User/user.js"));
+            bundles.Add(new ScriptBundle("~/bundles/testPagingData").Include("~/Scripts/Views/TestPagingData/testPagingData.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/login").Include("~/Scripts/login.js"));
 

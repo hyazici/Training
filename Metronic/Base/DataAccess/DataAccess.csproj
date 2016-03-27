@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnketBilgisiRepository.cs" />
     <Compile Include="BaseRepository.cs" />
     <Compile Include="CountryRepository.cs" />
     <Compile Include="DbManager.cs" />

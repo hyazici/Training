@@ -172,6 +172,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\TestPagingDataController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2601,10 +2602,11 @@
     <Content Include="Scripts\Views\ajaxHelper.js" />
     <Content Include="Scripts\Views\Country\country.js" />
     <Content Include="Scripts\Views\crudHelper.js" />
+    <None Include="Scripts\Views\dataTableTurkish.json" />
     <Content Include="Scripts\Views\messageHelper.js" />
     <Content Include="Scripts\Views\namespace.js" />
-    <Content Include="Scripts\Views\responsiveTable.js" />
     <Content Include="Scripts\Views\Role\role.js" />
+    <Content Include="Scripts\Views\TestPagingData\testPagingData.js" />
     <Content Include="Scripts\Views\User\user.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -2635,6 +2637,7 @@
     <Content Include="Views\Country\Index.cshtml" />
     <Content Include="Views\Error\OnError.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\TestPagingData\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2700,7 +2703,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>24029</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:23611/</IISUrl>
+          <IISUrl>http://localhost:23612/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
