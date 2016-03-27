@@ -2,8 +2,10 @@
 /// <reference path="../namespace.js" />
 /// <reference path="~/Scripts/mustache.js" />
 /// <reference path="ajaxHelper.js" />
-
-window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
+/// <reference path="~/Scripts/Views/namespace.js" />
+/// <reference path="~/Scripts/Views/messageHelper.js" />
+/// <reference path="~/Scripts/Views/responsiveTable.js" />
+window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper, responsiveTable) {
     var _options = {};
     var _pageModel = {};
 
@@ -40,10 +42,20 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
             }
         });
 
-        $('#dataTable').on("click", ".editButton", function() {
-            var editButton = $(this);
-            var id = editButton.data('id');
+        //$('#example tbody').on('click', 'tr', function () {
+        //    console.log(table.row(this).data());
+        //});
+
+        $('#dataTable tbody').on("click", "tr", function () {
+            var table = $('#dataTable').DataTable();
+            //var rowData = table.row(this).data();
+
+            var tr = $(this);
+            var id = tr.data('id');
             
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+
             if (_options.beforeGet) {
                 _options.beforeGet();
             }
@@ -85,13 +97,20 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
                     animate: true
                 });
                 ajaxHelper.post(_options.postUrl, _pageModel,
-                    function(data, status, jqXHR) {
+                    function (data, status, jqXHR) {
+                        var dataTable = $('#dataTable').DataTable();
                         if (_pageModel.Id === 0 || _pageModel.Id === '') {
-                            var template = $('#newItemTemplate').html();
                             _pageModel.Id = data.Id;
-                            var rendered = Mustache.render(template, _pageModel);
-                            $('#dataTable tbody').append(rendered);
 
+                            var arr = [];
+
+                            for (var x in _pageModel) {
+                                if (_pageModel.hasOwnProperty(x) && x !== "Id") {
+                                    arr.push(_pageModel[x]);
+                                }
+                            }
+                            arr.push("Seç");
+                            dataTable.row.add(arr).draw(false);
                             messageHelper.showNotificationSuccess("", "Başarıyla eklendi");
                         } else {
                             messageHelper.showNotificationSuccess("", "Başarıyla güncellendi");
@@ -127,28 +146,6 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
                     messageHelper.showNotificationError("Hata!", "Bir hata oluştu. Düzelmezse sistem yöneticisine başvurun");
                 });
         });
-
-        //$('#deleteButton').click(function() {
-        //    if (_pageModel.Id === 0) {
-        //        messageHelper.showNotificationWarning("Uyarı!", "Silmek istediğiniz satırı seçin");
-        //        return;
-        //    }
-        //    var confirmed = messageHelper.showDialog("Title", "Silmek istediğinize emin misiniz?");
-
-        //    if (!confirmed) {
-        //        return;
-        //    }
-
-        //    ajaxHelper.getById(_options.deleteUrl, _pageModel.Id,
-        //        function() {
-        //            $('tr[data-id=' + _pageModel.Id + ']').remove();
-
-        //            resetForm();
-        //        },
-        //        function() {
-        //            messageHelper.showNotificationError("Hata!", "Bir hata oluştu. Düzelmezse sistem yöneticisine başvurun");
-        //        });
-        //});
     });
 
     return {
@@ -169,4 +166,4 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
             return _pageModel;
         }
     }
-}(window, $, Ponera.Utils.AjaxHelper, window.Ponera.Utils.MessageHelper));
+}(window, $, Ponera.Utils.AjaxHelper, Ponera.Utils.MessageHelper, Ponera.Utils.ResponsiveTable));

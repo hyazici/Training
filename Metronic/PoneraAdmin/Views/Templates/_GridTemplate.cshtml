@@ -39,12 +39,15 @@
                             @column
                         </th>
                     }
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (object item in (modelList as IEnumerable))
+            @{
+                int rowIndex = 0;
+                foreach (object item in (modelList as IEnumerable))
                 {
+                    //string rowClass = rowIndex % 2 == 0 ? "gradeX even" : "gradeX odd";
+
                     PropertyInfo idPropInfo = propertyInfos.First(info => info.Name == "Id");
                     object id = idPropInfo.GetValue(item);
 
@@ -58,18 +61,21 @@
                                 <label data-colunmName="@column">@columnValue</label>
                             </td>
                         }
-                        <td>
-                            <a href="javascript:;" data-id="@id" class="editButton">Seç</a>
-                        </td>
+                        @*<td>
+                                <a href="javascript:;" data-id="@id" class="editButton">Seç</a>
+                            </td>*@
                     </tr>
+
+                    rowIndex++;
                 }
+            }
             </tbody>
         </table>
     </div>
 </div>
 
 
-<script id="newItemTemplate" type="x-tmpl-mustache">
+@*<script id="newItemTemplate" type="x-tmpl-mustache">
     <tr data-id="{{ Id }}">
         @foreach (var column in displayColumns)
         {
@@ -80,4 +86,4 @@
 
         <td><a href="javascript:;" data-id="{{ Id }}" class="editButton">Seç</a></td>
     </tr>
-</script>
+</script>*@
