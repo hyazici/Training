@@ -30,5 +30,6 @@ namespace Ponera.Base.Contracts.BusinessLayer
         void UpdateUser(UserModel userModel);
 
         void DummyMethod();
+        bool IsUserExists(string emailAdress);
     }
 }

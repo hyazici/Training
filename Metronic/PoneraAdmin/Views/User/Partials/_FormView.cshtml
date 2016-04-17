@@ -1,0 +1,60 @@
+﻿@model  Ponera.Base.Models.UserModel
+    
+<div class="portlet box purple ">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> Form
+        </div>
+        <div class="tools">
+            <a href="" class="collapse" data-original-title="" title=""> </a>
+        </div>
+    </div>
+    @Html.ValidationSummary()
+    <div class="portlet-body form" style="display: block;">
+        <form class="form-horizontal" role="form" data-toggle="validator">
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Ad</label>
+                    @*@Html.LabelFor(model => model.FirstName, new {@class = "col-md-2 control-label"})*@
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.FirstName, new {@class = "form-control ponera-form-control"})
+                        @Html.ValidationMessageFor(x => x.FirstName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Soyad</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.LastName, new {@class = "form-control ponera-form-control"})
+                        @Html.ValidationMessageFor(x => x.LastName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Email</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control ponera-form-control" })
+                        @Html.ValidationMessageFor(x => x.Email)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Şifre</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control ponera-form-control" })
+                        @Html.ValidationMessageFor(x => x.Password)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10 right1">
+                    <input id="submitButton" type="button" value="Kaydet" class="btn btn-default" />
+                    <input id="resetButton" type="button" value="Temizle" class="btn btn-default" />
+                    <input id="deleteButton"
+                           data-toggle="confirmation"
+                           data-btnOkLabel="Evet"
+                           data-btnCancelLabel="Hayır"
+                           data-title="Silmek istediğinize emin misiniz?" type="button" value="Sil" class="btn btn-default" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

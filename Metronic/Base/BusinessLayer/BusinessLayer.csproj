@@ -73,6 +73,10 @@
       <Project>{5e447d83-dc50-492c-8ab2-8e715e23e027}</Project>
       <Name>Exceptions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Models.Validators\Models.Validators.csproj">
+      <Project>{913abdab-1154-4b07-a4f9-83bafa6b031a}</Project>
+      <Name>Models.Validators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{b20f0536-9479-4839-87ae-bf1e9349a496}</Project>
       <Name>Models</Name>

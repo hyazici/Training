@@ -43,6 +43,10 @@
       <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -68,6 +72,10 @@
     <ProjectReference Include="..\DependencyInjection\Bootstrapper\Bootstrapper.csproj">
       <Project>{f502839b-e0d8-44f7-9c4a-6d6b8143673c}</Project>
       <Name>Bootstrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models.Validators\Models.Validators.csproj">
+      <Project>{913abdab-1154-4b07-a4f9-83bafa6b031a}</Project>
+      <Name>Models.Validators</Name>
     </ProjectReference>
     <ProjectReference Include="..\Notification\Notification\Notification.csproj">
       <Project>{2d46f966-ff01-4fed-8a31-82254d9e33f7}</Project>

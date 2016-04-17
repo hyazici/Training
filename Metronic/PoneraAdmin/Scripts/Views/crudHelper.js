@@ -5,7 +5,7 @@
 /// <reference path="~/Scripts/Views/namespace.js" />
 /// <reference path="~/Scripts/Views/messageHelper.js" />
 /// <reference path="~/Content/datatables/datatables.js" />
-window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
+window.Ponera.CrudHelper = (function (windows, $, ajaxHelper, messageHelper) {
     var _options = {};
     var _pageModel = {};
     var _selectedRow;
@@ -38,7 +38,7 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
     $(document).ready(function () {
         resetForm();
 
-        $('#resetButton').click(function() {
+        $('#resetButton').click(function () {
             resetForm();
 
             if (_options.onReset) {
@@ -50,10 +50,10 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
         //    console.log(table.row(this).data());
         //});
 
-        $('#dataTable tbody').on("click", "tr", function () {            
+        $('#dataTable tbody').on("click", "tr", function () {
             _selectedRow = $(this);
             var id = _selectedRow.data('id');
-            
+
             $('#dataTable').DataTable().$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
 
@@ -61,7 +61,7 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
                 _options.beforeGet();
             }
 
-            ajaxHelper.getById(_options.getUrl, id, function(data, status, jqXHR) {
+            ajaxHelper.getById(_options.getUrl, id, function (data, status, jqXHR) {
                 _pageModel = data;
 
                 for (var key in _pageModel) {
@@ -73,8 +73,13 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
                 if (_options.afterGet) {
                     _options.afterGet(status);
                 }
-            }, function(jqXHR, status, errorThrown) {
-                messageHelper.showNotificationError("Hata!", "Bir hata oluştu. Düzelmezse sistem yöneticisine başvurun");
+
+                $('form').valid();
+
+            }, function (jqXhr, status, errorThrown) {
+
+                var erroMessage = jqXhr.responseJSON.Message;
+                messageHelper.showNotificationError("Hata!", erroMessage);
 
                 if (_options.afterGet) {
                     _options.afterGet(status);
@@ -82,8 +87,10 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
             });
         });
 
-        $('#submitButton').click(function() {
+        $('#submitButton').click(function () {
             var valid = $('form').valid();
+
+            //var valid = true;
 
             $('.ponera-form-control').each(function () {
                 var name = $(this).attr('name');
@@ -126,9 +133,11 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
                             }
                         }
                         resetForm();
-                    }, function() {
-                        messageHelper.showNotificationError("Hata!", "Bir hata oluştu. Düzelmezse sistem yöneticisine başvurun");
-                    }, function() {
+                    }, function (jqXhr, status, errorThrown) {
+                        var erroMessage = jqXhr.responseJSON.Message;
+
+                        messageHelper.showNotificationError("Hata!", erroMessage);
+                    }, function () {
                         $('div.page-content-wrapper').unblock();
                     });
             }
@@ -141,7 +150,7 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
             }
 
             ajaxHelper.getById(_options.deleteUrl, _pageModel.Id,
-                function() {
+                function () {
                     // $('tr[data-id=' + _pageModel.Id + ']').remove();
 
                     var row = $('#dataTable').DataTable().row(_selectedRow);
@@ -149,7 +158,7 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
 
                     resetForm();
                 },
-                function() {
+                function () {
                     messageHelper.showNotificationError("Hata!", "Bir hata oluştu. Düzelmezse sistem yöneticisine başvurun");
                 });
         });
@@ -166,10 +175,10 @@ window.Ponera.CrudHelper = (function(windows, $, ajaxHelper, messageHelper) {
         // _options.beforeDelete
         // _options.afterDelete    
         // _options.onReset
-        setOptions: function(options) {
+        setOptions: function (options) {
             _options = options;
         },
-        getPageModel :function() {
+        getPageModel: function () {
             return _pageModel;
         }
     }

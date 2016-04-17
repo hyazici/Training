@@ -20,6 +20,11 @@
                 { "data": "Adi", "orderable": true },
                 { "data": "Soyadi", "orderable": true }
             ],
+            buttons: [
+                { extend: 'print', className: 'btn default' },
+                { extend: 'pdf', className: 'btn default' },
+                { extend: 'csv', className: 'btn default' }
+            ],
         });
     }
 

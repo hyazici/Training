@@ -9,9 +9,11 @@ namespace PoneraAdmin
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/MainLayout").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/jquery-2.1.4.js",
                         "~/Scripts/bootstrap.js",
+                        "~/Scripts/jquery.validate.js",
+                        "~/Scripts/jquery.validate.unobtrusive.js",
+                        "~/Scripts/jquery.validate.unobtrusive.bootstrap.js",
                         "~/Scripts/bootstrap-confirmation.js",
                         "~/Scripts/js.cookie.min.js",
                         "~/Scripts/bootstrap-hover-dropdown.js",

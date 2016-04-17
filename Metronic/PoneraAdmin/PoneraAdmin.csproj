@@ -57,6 +57,14 @@
       <HintPath>..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentValidation.Mvc, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.MVC5.6.2.1.0\lib\Net45\FluentValidation.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -174,6 +182,7 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TestPagingDataController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2444,6 +2453,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\js.cookie.min.js" />
     <Content Include="Scripts\lang-all.js" />
     <Content Include="Scripts\lang\ar-ma.js" />
@@ -2602,6 +2613,7 @@
     <Content Include="Scripts\Views\ajaxHelper.js" />
     <Content Include="Scripts\Views\Country\country.js" />
     <Content Include="Scripts\Views\crudHelper.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
     <None Include="Scripts\Views\dataTableTurkish.json" />
     <Content Include="Scripts\Views\messageHelper.js" />
     <Content Include="Scripts\Views\namespace.js" />
@@ -2638,6 +2650,7 @@
     <Content Include="Views\Error\OnError.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\TestPagingData\Index.cshtml" />
+    <Content Include="Views\User\Partials\_FormView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2671,6 +2684,10 @@
     <ProjectReference Include="..\Base\ExceptionHandling\Exceptions\Exceptions.csproj">
       <Project>{5e447d83-dc50-492c-8ab2-8e715e23e027}</Project>
       <Name>Exceptions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Base\Models.Validators\Models.Validators.csproj">
+      <Project>{913abdab-1154-4b07-a4f9-83bafa6b031a}</Project>
+      <Name>Models.Validators</Name>
     </ProjectReference>
     <ProjectReference Include="..\Base\Models\Models.csproj">
       <Project>{b20f0536-9479-4839-87ae-bf1e9349a496}</Project>

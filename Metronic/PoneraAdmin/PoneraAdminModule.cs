@@ -1,12 +1,17 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using FluentValidation;
+using FluentValidation.Mvc;
 using Ponera.Base.Contracts;
 using Ponera.Base.Contracts.Security;
 using Ponera.Base.DependencyInjection.Bootstrapper.Base;
 using Ponera.Base.ExceptionHandling;
+using Ponera.Base.Models.Validators.Factories;
+using Ponera.Base.Models.Validators.PropertyValidators;
 using Ponera.Base.Security;
 using Ponera.PoneraAdmin.Core;
 
@@ -35,6 +40,15 @@ namespace PoneraAdmin
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ExceptionHandlingConfiguration.Configure();
+
+            FluentValidationModelValidatorProvider.Configure(provider =>
+            {
+                ModelValidatorFactory modelValidatorFactory = container.Resolve<ModelValidatorFactory>();
+
+                provider.ValidatorFactory = modelValidatorFactory;
+
+                provider.Add(typeof (UniqueEmailValidator), (metadata, context, rule, validator) => new UniqueEmailValidatorRemote(metadata, context, rule, validator));
+            });
         }
 
         public override void OnPreLoad()

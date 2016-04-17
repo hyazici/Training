@@ -8,6 +8,7 @@ using Ponera.Base.Contracts.BusinessLayer;
 using Ponera.Base.Contracts.DataAccess;
 using Ponera.Base.Entities;
 using Ponera.Base.Models;
+using Ponera.Base.Models.Validators.Attributes;
 
 namespace Ponera.Base.BusinessLayer
 {
@@ -55,7 +56,6 @@ namespace Ponera.Base.BusinessLayer
             return userModel;
         }
 
-        //UNAL
         public void DeleteUserById(int id)
         {
             if (id == 0)
@@ -110,6 +110,7 @@ namespace Ponera.Base.BusinessLayer
             userModel.Id = user.Id;
         }
 
+        [ValidateModel]
         public void AddUser(UserModel userModel)
         {
             if (userModel == null)
@@ -144,6 +145,18 @@ namespace Ponera.Base.BusinessLayer
             UserModel userModel = user.Map<UserModel>();
 
             return userModel;
+        }
+
+        public bool IsUserExists(string emailAdress)
+        {
+            if (emailAdress == null)
+            {
+                throw new ArgumentNullException(nameof(emailAdress));
+            }
+
+            User userByEmailAddress = _userRepository.GetUserByEmailAddress(emailAdress);
+
+            return userByEmailAddress != null;
         }
 
         public IList<RoleModel> GetRoles()

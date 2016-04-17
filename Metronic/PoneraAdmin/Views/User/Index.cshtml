@@ -8,67 +8,16 @@
 }
 
 <h2>Kullanıcı Tanım</h2>
-
-<div class="portlet box purple ">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i> Form
-        </div>
-        <div class="tools">
-            <a href="" class="collapse" data-original-title="" title=""> </a>
-        </div>
-    </div>
-    <div class="portlet-body form" style="display: block;">
-        <form class="form-horizontal" role="form">
-
-            <div class="form-body">
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Adı</label>
-                    <div class="col-md-10">
-                        <input id="FirstName" type="text" name="FirstName" class="form-control ponera-form-control" placeholder="Ad">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Soyadı</label>
-                    <div class="col-md-10">
-                        <input id="LastName" type="text" name="LastName" class="form-control ponera-form-control" placeholder="Soyad">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Email</label>
-                    <div class="col-md-10">
-                        <input id="Email" type="text" name="Email" class="form-control ponera-form-control" placeholder="Email">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Şifre</label>
-                    <div class="col-md-10">
-                        <input id="Password" name="Password" type="text" class="form-control ponera-form-control" placeholder="Şifre">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10 right1">
-                    <input id="submitButton" type="button" value="Kaydet" class="btn btn-default"/>
-                    <input id="resetButton" type="button" value="Temizle" class="btn btn-default"/>
-                    <input id="deleteButton"
-                           data-toggle="confirmation"
-                           data-btnOkLabel="Evet"
-                           data-btnCancelLabel="Hayır"
-                           data-title="Silmek istediğinize emin misiniz?" type="button" value="Sil" class="btn btn-default" />
-                </div>
-            </div>
-
-        </form>
-    </div>
-</div>
+@{
+    Html.RenderPartial("Partials/_FormView", new UserModel());
+}
 
 @{
     Html.RenderPartial("~/Views/Templates/_GridTemplate.cshtml", new GridTemplateModel()
     {
         Model = Model,
         DisplayColumns = PropertyNameHelper.GetPropertyNames<UserModel>(model => model.FirstName, model => model.LastName, model => model.Email),
-        DisplayColumnNames = new[] {"Ad", "Soyad", "Email"},
+        DisplayColumnNames = new[] { "Ad", "Soyad", "Email" },
         DataTableTitle = "Kullanıcılar"
     });
 }
